@@ -1,0 +1,512 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Arcane Odyssey",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "made by firebrandw",
+   LoadingSubtitle = "Arcane Odyssey",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "XW2RWpP9Rs", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Player", "badge-dollar-sign")
+local Button = Tab:CreateButton({
+   Name = "Infinite Jump",
+   Callback = function()
+  _G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Chams/ESP",
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/EqwstreZ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Speed (HOLD X)",
+   Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/Kxb0wAjJ'))()   -- The function that takes place when the button is pressed
+   end,
+})
+
+--start
+local isTeleportEnabled = false
+
+local Toggle = Tab:CreateToggle({
+   Name = "Enable Ctrl+Click Teleport",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       isTeleportEnabled = Value
+   end,
+})
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local function onMouseClick()
+    if isTeleportEnabled then
+        local mouse = Players.LocalPlayer:GetMouse()
+        if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+            local targetPosition = mouse.Hit.p  -- Get the position of the mouse click
+            if targetPosition then
+                Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)  -- Teleport the player
+            end
+        end
+    end
+end
+
+-- Connect the function to the mouse click event
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.UserInputType == Enum.UserInputType.MouseButton1 then
+        onMouseClick()
+    end
+end)
+
+--------
+
+
+-- Flight Variables
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local flySpeed = 200 -- Increased speed for faster flight (adjust this value as needed)
+
+-- Function to start flying
+local function startFlying()
+    flying = true
+    
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.MaxForce = Vector3.new(1000000, 1000000, 1000000)
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    bodyVelocity.Parent = rootPart
+
+    local userInputService = game:GetService("UserInputService")
+    
+    -- Fly control while flying
+    while flying do
+        local moveDirection = Vector3.new(0, 0, 0)
+
+        -- Controls based on user input
+        if userInputService:IsKeyDown(Enum.KeyCode.W) then
+            moveDirection = moveDirection + workspace.CurrentCamera.CFrame.LookVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.S) then
+            moveDirection = moveDirection - workspace.CurrentCamera.CFrame.LookVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.A) then
+            moveDirection = moveDirection - workspace.CurrentCamera.CFrame.RightVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.D) then
+            moveDirection = moveDirection + workspace.CurrentCamera.CFrame.RightVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.Space) then
+            moveDirection = moveDirection + Vector3.new(0, 1, 0)
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            moveDirection = moveDirection - Vector3.new(0, 1, 0)
+        end
+
+        -- Apply movement
+        bodyVelocity.Velocity = moveDirection * flySpeed
+        wait(0.1)
+    end
+end
+
+-- Function to stop flying
+local function stopFlying()
+    flying = false
+    local bodyVelocity = rootPart:FindFirstChild("BodyVelocity")
+    if bodyVelocity then
+        bodyVelocity:Destroy()
+    end
+end
+
+-- Create Toggle Button
+local Toggle = Tab:CreateToggle({
+    Name = "Toggle Flight",
+    CurrentValue = false,
+    Flag = "ToggleFlight", 
+    Callback = function(Value)
+        if Value then
+            startFlying()
+        else
+            stopFlying()
+        end
+    end,
+})
+
+-------------------
+
+local Tab = Window:CreateTab("Teleports (takes time to load)", "arrow-up-a-z")
+
+local Input = Tab:CreateInput({
+   Name = "Player Name",
+   PlaceholderText = "Enter Player Name",
+   NumbersOnly = false, -- Allow any characters for player names
+   CharacterLimit = 15,
+   OnEnter = true,
+   RemoveTextAfterFocusLost = false,
+   Callback = function(playerName)
+       local player = game.Players:FindFirstChild(playerName)
+       if player then
+           local character = player.Character
+           if character and character:FindFirstChild("HumanoidRootPart") then
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame
+           else
+               print("Character not found or does not have a HumanoidRootPart.")
+           end
+       else
+           print("Player not found.")
+       end
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Blackreach Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8879.17871, 785.848206, 14480.3076, 0.964001358, 9.82788784e-09, 0.265897274, -1.5127187e-10, 1, -3.64127892e-08, -0.265897274, 3.50617562e-08, 0.964001358)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Cassia Bay",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22298.6543, 410.099915, 9101.54297, 0.857794881, 2.99343696e-08, -0.51399219, -6.67901858e-08, 1, -5.32263122e-08, 0.51399219, 7.998689e-08, 0.857794881)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Cedar Arch",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(483.988007, 400, 9296.57031, 1, 0, 0, 0, 1, 0, 0, 0, 1)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Cirrus Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3940.60986, 2382.17285, 374.329681, -0.614710987, -3.64711994e-09, 0.788752437, -5.89940941e-09, 1, 2.6229071e-11, -0.788752437, -4.6370503e-09, -0.614710987)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Darkpine Isle",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1579.08911, 519.747742, 5072.83691, 0.728608489, 1.99384296e-08, 0.684930384, -1.91848812e-08, 1, -8.7018508e-09, -0.684930384, -6.80006584e-09, 0.728608489)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Dawn Island (beginner area)",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(688.342041, 403.5, 6366.771, 0.974366367, 0, 0.224967003, 0, 1, 0, -0.224967003, 0, 0.974366367)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Dijn Ruins",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7237.1333, 2563.97461, 1142.06238, -0.278212309, -5.5468135e-08, 0.960519612, -1.29159856e-08, 1, 5.40069678e-08, -0.960519612, 2.61934519e-09, -0.278212309)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Elm Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-525.635559, 417.410461, 6404.87793, -0.998601377, -0.00211288081, -0.0528281033, 2.08092388e-07, 0.99920094, -0.0399680212, 0.052870322, -0.0399121232, -0.99780339)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Fort Talos",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10785.168, 744.959595, 165.985382, -0.292131692, 9.76799512e-08, 0.956378102, 5.36838343e-08, 1, -8.573722e-08, -0.956378102, 2.62954849e-08, -0.292131692)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Frostmill Village",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2575.45117, 431.974182, 6493.51611, -0.998745084, 7.58625518e-09, 0.0500829108, 1.00337996e-08, 1, 4.86184248e-08, -0.0500829108, 4.90599348e-08, -0.998745084)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Gloam Ruins",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1884.76807, 513.519592, 11876.6094, 0.0178187415, -1.12601199e-08, 0.999841213, -3.48562814e-08, 1, 1.18831016e-08, -0.999841213, -3.50624916e-08, 0.0178187415)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Goso Jungle",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3137.95557, 490.974243, 4505.03809, -0.675204098, 5.9028217e-08, 0.737630963, 1.51908523e-07, 1, 5.9028217e-08, -0.737630963, 1.51908523e-07, -0.675204098)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Harvest Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7132.7207, 605.075806, 493.273529, 0.27631399, -4.05459932e-09, -0.961067438, -1.02833528e-08, 1, -7.17539006e-09, 0.961067438, 1.1865656e-08, 0.27631399)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Ierochos",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2463.34863, 850.738586, 7403.79346, -0.979703367, 1.04852727e-09, -0.200452745, 2.16320073e-09, 1, -5.34174704e-09, 0.200452745, -5.66694691e-09, -0.979703367)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Limestone Key",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(5777.75879, 419.974213, 5751.11377, 0.954417765, -7.58281971e-09, -0.298473954, 1.06744569e-08, 1, 8.72797123e-09, 0.298473954, -1.15161782e-08, 0.954417765)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Mango Isle",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-305.939758, 437.974121, 5573.2749, -0.924703181, -5.94836491e-09, -0.380688846, -6.76959733e-09, 1, 8.18262458e-10, 0.380688846, 3.33376016e-09, -0.924703181)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Mount Othrys",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(26826.4395, 1198.94482, 9407.47461, 0.0720092133, 6.84041126e-08, -0.997403979, 2.34366082e-09, 1, 6.87513548e-08, 0.997403979, -7.28830774e-09, 0.0720092133)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Munera Garden",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(10343.3164, 453.970245, 3456.51074, 0.520666301, 2.97282615e-10, 0.853760242, -2.1451001e-09, 1, 9.59986979e-10, -0.853760242, -2.33123409e-09, 0.520666301)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Palo Town",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4903.2417, 447.585541, 3471.00391, 0.426102579, 7.40005177e-08, -0.904674828, -2.76752399e-08, 1, 6.87628585e-08, 0.904674828, -4.26293756e-09, 0.426102579)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Ravenna",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new()  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Rubica (the wealthy capital of Ravenna",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(16367.9795, 466.975311, 3069.00195, 0.961246669, 8.08756937e-08, -0.275689751, -8.09849041e-08, 1, 1.0987792e-08, 0.275689751, 1.17647296e-08, 0.961246669)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Tiberia (the poor district of Ravenna)",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(17393.2754, 441.97641, 1831.17188, 0.954692781, 6.72782434e-08, -0.297593206, -5.41446106e-08, 1, 5.23761265e-08, 0.297593206, -3.38900392e-08, 0.954692781)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Rasna (the commonfolk town of Ravenna)",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(15956.7217, 454.976379, 1314.74988, 0.237376511, -5.08955722e-08, 0.971417725, -1.54644582e-08, 1, 5.61719951e-08, -0.971417725, -2.83563608e-08, 0.237376511)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Redwake",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(389.632355, 464.97522, 3033.61792, 0.934767723, -2.31126385e-09, 0.355259478, 4.11471177e-08, 1, -1.01761486e-07, -0.355259478, 1.09741258e-07, 0.934767723)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Sailor's Lodge",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(12850.9844, 439.972717, 2169.15918, 0.25307703, 9.10200626e-09, -0.967446148, -7.31929859e-08, 1, -9.73848291e-09, 0.967446148, 7.32748617e-08, 0.25307703)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Sandfall Isle",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(13572.4092, 406.483246, 5723.98682, 0.819155693, 0, 0.573571265, 0, 1, 0, -0.573571265, 0, 0.819155693)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Shell Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(11674.6055, 435.473999, 10812.1875, -0.71447438, -1.24345503e-08, -0.699661613, -4.97562658e-09, 1, -1.26912667e-08, 0.699661613, -5.58633007e-09, -0.71447438)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Silverhold",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(7413.08154, 633.802185, 3851.92847, 0.298369944, -4.56024196e-09, 0.954450309, 9.03108628e-08, 1, -2.34541346e-08, -0.954450309, 9.319524e-08, 0.298369944)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Skycliff Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(924.732361, 2812.2229, -691.335205, -0.951843023, -1.29651161e-08, -0.306585848, -5.86148419e-09, 1, -2.40908165e-08, 0.306585848, -2.11336264e-08, -0.951843023)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "The Forest of Cernunno",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9730.9043, 782.956421, 7352.35742, 0.99199152, 9.04033204e-09, 0.126304314, -1.42507188e-08, 1, 4.03490574e-08, -0.126304314, -4.1825853e-08, 0.99199152)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "The Myriad",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6375.84375, 2819.97437, 2968.57446, 0.22817342, 2.93077296e-09, -0.973620534, -8.60633964e-09, 1, 9.93236271e-10, 0.973620534, 8.15267853e-09, 0.22817342)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Thorin's Refuge",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4161.76709, 528.767578, 9141.87012, -0.639036417, -7.27374925e-08, 0.769176483, -2.1386807e-08, 1, 7.67971287e-08, -0.769176483, 3.26259304e-08, -0.639036417)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Thrylos Crossing",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(16172.6621, 596.764648, 8251.70117, 0.979389727, -9.01442421e-10, 0.201979488, 1.28558195e-08, 1, -5.78742672e-08, -0.201979488, 5.92780758e-08, 0.979389727)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Whispering Caverns",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(6349.44629, 499.975189, 8187.73633, 0.97453022, -4.59876404e-08, -0.224256143, 4.81074416e-08, 1, 3.98880617e-09, 0.224256143, -1.46756012e-08, 0.97453022)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Whitesummit",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4589.72412, 715.599854, -123.622284, -0.99844718, -6.81673527e-08, 0.0557065122, -7.36177057e-08, 1, -9.57884723e-08, -0.0557065122, -9.9740717e-08, -0.99844718)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Wind-Row Island",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(22082.8965, 859.452942, -209.627472, -0.483869761, 2.44615368e-08, 0.875140011, -6.10217938e-08, 1, -6.16908551e-08, -0.875140011, -8.32529565e-08, -0.483869761)  
+   end,
+})
+
+--------------------------------------------------------------------------------------
+local Tab = Window:CreateTab("Game", "earth")
+
+-- Create the toggle button for Fullbright
+local Toggle = Tab:CreateToggle({
+   Name = "Fullbright Toggle",
+   CurrentValue = false, -- Default is off (no fullbright)
+   Flag = "Toggle1", -- Identifier for the configuration file
+   Callback = function(Value)
+      -- This function is triggered when the toggle state changes (true or false)
+      if Value then
+         -- Enable fullbright effect
+         game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)  -- Bright ambient lighting
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)  -- Bright outdoor lighting
+         game.Lighting.Brightness = 2 -- Higher brightness
+         game.Lighting.ShadowSoftness = 0 -- Remove shadows
+         game.Lighting.GeometricBrightness = 1 -- Optional: to enhance brightness of geometry
+      else
+         -- Disable fullbright effect and restore default lighting
+         game.Lighting.Ambient = Color3.fromRGB(128, 128, 128)  -- Default ambient lighting
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)  -- Default outdoor lighting
+         game.Lighting.Brightness = 1 -- Default brightness
+         game.Lighting.ShadowSoftness = 0.5 -- Default shadow softness
+         game.Lighting.GeometricBrightness = 0.5 -- Default geometric brightness
+      end
+   end,
+})
+
+local Tab = Window:CreateTab("!", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "made by firebrandw",
+   Callback = function()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "discord.gg/XW2RWpP9Rs",
+   Callback = function()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "STILL IN BETA",
+   Callback = function()
+   end,
+})
