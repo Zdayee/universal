@@ -1,0 +1,2150 @@
+local L_1_ = game:GetService("ReplicatedStorage")
+local L_2_ = game:GetService("Workspace")
+local L_3_ = game:GetService("Players")
+
+local L_4_ = {
+	ToolCollect = L_1_.Events.ToolCollect,
+	ToyEvent = L_1_.Events.ToyEvent,
+	PlayerHiveCommand = L_1_.Events.PlayerHiveCommand,
+	ClaimHive = L_1_.Events.ClaimHive
+}
+
+local L_5_ = {
+	HiddenStickers = L_2_.HiddenStickers,
+	Collectibles = L_2_.Collectibles
+}
+
+local L_6_ = {
+	AutoDig = false,
+	CollectHiddenStickers = false
+}
+
+task.spawn(function()
+	repeat
+		if L_6_.CollectHiddenStickers then
+			for L_51_forvar0, L_52_forvar1 in L_5_.HiddenStickers:GetChildren() do
+				fireclickdetector(L_52_forvar1.ClickDetector)
+			end
+		end
+		task.wait(1)
+	until false
+end)
+
+local L_7_ = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local L_8_ = L_7_:MakeWindow({
+	Name = "RBScr1pts Hub - v99e99 - (math.huge/0)",
+	HidePremium = false,
+	SaveConfig = true,
+	ConfigFolder = "RBScr1ptsHub - Bee Swarm Simulator ",
+	IntroEnabled = true,
+	IntroText = "RBScr1pts - Bee Swarm Simulator"
+})
+
+local L_9_ = L_8_:MakeTab({
+	Name = "Main",
+	Icon = "",
+	PremiumOnly = false
+})
+
+L_9_:AddParagraph("Scripters:", "Krires + why_y0u")
+
+L_9_:AddLabel("Join us discord for information about updates!")
+
+local L_10_ = "discord.gg/sHkw5prEjW - click to copy"
+
+L_9_:AddButton({
+	Name = "Discord!",
+	Callback = function()
+		setclipboard(L_10_)
+	end    
+})
+
+local L_11_ = L_8_:MakeTab({
+	Name = "Farm",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_12_ = L_8_:MakeTab({
+	Name = "Event",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_13_ = L_8_:MakeTab({
+	Name = "Mobs",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_14_ = L_8_:MakeTab({
+	Name = "Items",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_15_ = L_8_:MakeTab({
+	Name = "Misc",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_16_ = L_8_:MakeTab({
+	Name = "Extra",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_17_ = L_8_:MakeTab({
+	Name = "Webhook | cleaned",
+	Icon = "",
+	PremiumOnly = false
+})
+
+local L_18_ = L_8_:MakeTab({
+	Name = "Settings",
+	Icon = "",
+	PremiumOnly = false
+})
+
+L_18_:AddBind({
+	Name = "Toggle Gui",
+	Default = Enum.KeyCode.LeftControl,
+	Hold = false,
+	Callback = function()
+		if game.CoreGui.Orion.Enabled == true then
+			game.CoreGui.Orion.Enabled = false
+		elseif game.CoreGui.Orion.Enabled == false then
+			game.CoreGui.Orion.Enabled = true
+		end
+	end
+})
+
+
+--Farm / Two
+local L_19_ = L_11_:AddSection({
+	Name = "Farm"
+})
+
+L_11_:AddToggle({
+	Name = "Auto Dig",
+	Default = false,
+	Callback = function(L_53_arg0)
+		L_6_.AutoDig = L_53_arg0
+		if L_53_arg0 then
+			startAutoDig()
+		end
+	end    
+})
+
+function startAutoDig()
+	spawn(function()
+		while true do
+			if L_6_.AutoDig then
+				L_4_.ToolCollect:FireServer()
+			end
+			task.wait(0.1)
+		end
+	end)
+end
+
+L_6_.AutoDig = false
+
+local L_20_ = ""
+local L_21_ = "Tween"
+
+L_11_:AddDropdown({
+	Name = "Select Field",
+	Default = "BamBoo Field",
+	Options = {
+		"BamBoo Field",
+		"Blue Field",
+		"Cactus Field",
+		"Clover Field",
+		"Coconut Field",
+		"Dandelion Field",
+		"Stump Field",
+		"MountainTop Field",
+		"Mushroom Field",
+		"Pepper Patch",
+		"Pineapple Field",
+		"PineTree Field",
+		"Pumpkin Field",
+		"Rose Field",
+		"Spider Field",
+		"StrawBerry Field",
+		"Sunflower Field"
+	},
+	Callback = function(L_54_arg0)
+		L_20_ = L_54_arg0
+	end
+})
+
+L_11_:AddDropdown({
+	Name = "Select Farm Mode",
+	Default = "Tween",
+	Options = {
+		"Tween",
+		"TweenFast",
+		"Walk"
+	},
+	Callback = function(L_55_arg0)
+		L_21_ = L_55_arg0
+	end
+})
+
+shared.farmFlames = false
+shared.farmBubbles = false
+shared.farmStars = false
+shared.farmBalloons = false
+
+L_11_:AddToggle({
+	Name = "Farm Flames",
+	Default = false,
+	Callback = function(L_56_arg0)
+		shared.farmFlames = L_56_arg0
+	end
+})
+
+L_11_:AddToggle({
+	Name = "Farm Bubbles",
+	Default = false,
+	Callback = function(L_57_arg0)
+		shared.farmBubbles = L_57_arg0
+	end
+})
+
+L_11_:AddToggle({
+	Name = "Farm Stars",
+	Default = false,
+	Callback = function(L_58_arg0)
+		shared.farmStars = L_58_arg0
+	end
+})
+
+L_11_:AddToggle({
+	Name = "Farm Balloons",
+	Default = false,
+	Callback = function(L_59_arg0)
+		shared.farmBalloons = L_59_arg0
+	end
+})
+
+L_11_:AddToggle({
+	Name = "Auto Farm",
+	Default = false,
+	Callback = function(L_60_arg0)
+		if L_60_arg0 then
+			if L_21_ == "Tween" then
+				shared.a11 = true
+				startTweenFarm()
+			elseif L_21_ == "TweenFast" then
+				shared.a12 = true
+				startTweenFastFarm()
+			elseif L_21_ == "Walk" then
+				shared.a13 = true
+				startWalkFarm()
+			end
+		else
+			shared.a11 = false
+			shared.a12 = false
+			shared.a13 = false
+		end
+	end
+})
+
+local function L_22_func(L_61_arg0, L_62_arg1)
+	return (L_61_arg0 - L_62_arg1).Magnitude <= 40
+end
+
+local function L_23_func(L_63_arg0)
+	local L_64_ = nil
+	local L_65_ = math.huge
+	for L_66_forvar0, L_67_forvar1 in pairs(workspace.PlayerFlames:GetChildren()) do
+		local L_68_ = (L_67_forvar1.Position - L_63_arg0).Magnitude
+		if L_68_ < L_65_ then
+			L_64_ = L_67_forvar1
+			L_65_ = L_68_
+		end
+	end
+	return L_64_
+end
+
+local function L_24_func(L_69_arg0)
+	local L_70_ = nil
+	local L_71_ = math.huge
+	for L_72_forvar0, L_73_forvar1 in pairs(workspace.Particles:GetChildren()) do
+		if L_73_forvar1.Name == "Bubble" and L_73_forvar1:IsA("Part") then
+			local L_74_ = (L_73_forvar1.Position - L_69_arg0).Magnitude
+			if L_74_ < L_71_ then
+				L_70_ = L_73_forvar1
+				L_71_ = L_74_
+			end
+		end
+	end
+	return L_70_
+end
+
+local function L_25_func(L_75_arg0)
+	local L_76_ = nil
+	local L_77_ = math.huge
+	for L_78_forvar0, L_79_forvar1 in pairs(workspace.Particles:GetChildren()) do
+		if L_79_forvar1.Name == "Star" and L_79_forvar1:IsA("Part") then
+			local L_80_ = (L_79_forvar1.Position - L_75_arg0).Magnitude
+			if L_80_ < L_77_ then
+				L_76_ = L_79_forvar1
+				L_77_ = L_80_
+			end
+		end
+	end
+	return L_76_
+end
+
+local function L_26_func(L_81_arg0)
+	local L_82_ = nil
+	local L_83_ = math.huge
+	local L_84_ = nil
+	for L_85_forvar0, L_86_forvar1 in pairs(workspace.Balloons.FieldBalloons:GetChildren()) do
+		local L_87_ = L_86_forvar1:FindFirstChild("BalloonBody")
+		if L_87_ then
+			local L_88_ = (L_87_.Position - L_81_arg0).Magnitude
+			if L_88_ <= 40 and L_88_ < L_83_ then
+				L_82_ = L_87_
+				L_83_ = L_88_
+				L_84_ = L_87_.Position
+			end
+		end
+	end
+	return L_82_, L_84_
+end
+
+function startTweenFarm()
+	spawn(function()
+		local L_89_ = {
+			["BamBoo Field"] = CFrame.new(93, 20, -25),
+			["Blue Field"] = CFrame.new(113.7, 4, 101.5),
+			["Cactus Field"] = CFrame.new(-194, 68, -107),
+			["Clover Field"] = CFrame.new(174, 34, 189),
+			["Coconut Field"] = CFrame.new(-255, 72, 459),
+			["Dandelion Field"] = CFrame.new(-30, 4, 225),
+			["Stump Field"] = CFrame.new(420, 117, -178),
+			["MountainTop Field"] = CFrame.new(76, 176, -181),
+			["Mushroom Field"] = CFrame.new(-91, 4, 116),
+			["Pepper Patch"] = CFrame.new(-486, 124, 517),
+			["Pineapple Field"] = CFrame.new(262, 68, -201),
+			["PineTree Field"] = CFrame.new(-338, 69, -180),
+			["Pumpkin Field"] = CFrame.new(-186, 68.5, -194),
+			["Rose Field"] = CFrame.new(-322, 20, 124),
+			["Spider Field"] = CFrame.new(-57.2, 20, -5.3),
+			["StrawBerry Field"] = CFrame.new(-179, 20, -14),
+			["Sunflower Field"] = CFrame.new(-208, 4, 185)
+		}
+		local function L_90_func()
+			local L_91_ = L_89_[L_20_]
+			if L_91_ then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_91_
+			end
+		end
+		L_90_func()
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
+			if shared.a11 then
+				wait(5)
+				L_90_func()
+			end
+		end)
+		while shared.a11 do
+			local L_92_ = game.Players.LocalPlayer
+			local L_93_ = game:GetService("TweenService")
+			local L_94_ = TweenInfo.new(0.4)
+			local L_95_ = L_92_.Character.HumanoidRootPart.Position
+			local L_96_ = L_89_[L_20_]
+			local L_97_ = (L_95_ - L_96_.Position).Magnitude
+			if L_97_ > 40 then
+				L_92_.Character.HumanoidRootPart.CFrame = L_96_
+			end
+			local L_98_ = L_23_func(L_95_)
+			local L_99_ = L_24_func(L_95_)
+			local L_100_ = L_25_func(L_95_)
+			local L_101_, L_102_ = L_26_func(L_95_)
+			if shared.farmFlames and L_98_ and L_22_func(L_98_.Position, L_96_.Position) then
+				local L_103_ = L_98_.Position
+				local L_104_ = CFrame.new(L_103_.X, L_92_.Character.HumanoidRootPart.Position.Y, L_103_.Z)
+				local L_105_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+					CFrame = L_104_
+				})
+				L_105_:Play()
+				L_105_.Completed:Wait()
+			elseif shared.farmBubbles and L_99_ and L_22_func(L_99_.Position, L_96_.Position) then
+				local L_106_ = L_99_.Position
+				local L_107_ = CFrame.new(L_106_.X, L_92_.Character.HumanoidRootPart.Position.Y, L_106_.Z)
+				local L_108_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+					CFrame = L_107_
+				})
+				L_108_:Play()
+				L_108_.Completed:Wait()
+			elseif shared.farmStars and L_100_ and L_22_func(L_100_.Position, L_96_.Position) then
+				local L_109_ = L_100_.Position
+				local L_110_ = CFrame.new(L_109_.X, L_92_.Character.HumanoidRootPart.Position.Y, L_109_.Z)
+				local L_111_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+					CFrame = L_110_
+				})
+				L_111_:Play()
+				L_111_.Completed:Wait()
+			elseif shared.farmBalloons and L_101_ and L_102_ then
+				local L_112_ = 10
+				local L_113_ = {}
+				for L_114_forvar0, L_115_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					if L_115_forvar1.Transparency == 0 and (L_115_forvar1.Position - L_102_).Magnitude <= L_112_ then
+						table.insert(L_113_, L_115_forvar1)
+					end
+				end
+				if #L_113_ > 0 then
+					for L_116_forvar0, L_117_forvar1 in ipairs(L_113_) do
+						local L_118_ = L_117_forvar1.Position
+						local L_119_ = CFrame.new(L_118_.X, L_92_.Character.HumanoidRootPart.Position.Y, L_118_.Z)
+						local L_120_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+							CFrame = L_119_
+						})
+						L_120_:Play()
+						L_120_.Completed:Wait()
+					end
+				else
+					local L_121_ = math.random() * math.pi * 2
+					local L_122_ = math.random() * L_112_
+					local L_123_ = math.cos(L_121_) * L_122_
+					local L_124_ = math.sin(L_121_) * L_122_
+					local L_125_ = Vector3.new(L_102_.X + L_123_, L_92_.Character.HumanoidRootPart.Position.Y, L_102_.Z + L_124_)
+					local L_126_ = CFrame.new(L_125_)
+					local L_127_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+						CFrame = L_126_
+					})
+					L_127_:Play()
+					L_127_.Completed:Wait()
+				end
+			else
+				for L_128_forvar0, L_129_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					local L_130_ = (L_129_forvar1.Position - L_95_).Magnitude
+					if L_129_forvar1.Transparency == 0 and L_130_ <= 40 then
+						local L_131_ = L_129_forvar1.Position
+						local L_132_ = (L_131_ - L_96_.Position).Magnitude
+						if L_132_ <= 40 then
+							local L_133_ = L_131_.X
+							local L_134_ = L_131_.Z
+							local L_135_ = CFrame.new(L_133_, L_92_.Character.HumanoidRootPart.Position.Y, L_134_)
+							local L_136_ = L_93_:Create(L_92_.Character.HumanoidRootPart, L_94_, {
+								CFrame = L_135_
+							})
+							L_136_:Play()
+						end
+					end
+				end
+			end
+			task.wait(0.5)
+		end
+	end)
+end
+
+function startTweenFastFarm()
+	spawn(function()
+		local L_137_ = {
+			["BamBoo Field"] = CFrame.new(93, 20, -25),
+			["Blue Field"] = CFrame.new(113.7, 4, 101.5),
+			["Cactus Field"] = CFrame.new(-194, 68, -107),
+			["Clover Field"] = CFrame.new(174, 34, 189),
+			["Coconut Field"] = CFrame.new(-255, 72, 459),
+			["Dandelion Field"] = CFrame.new(-30, 4, 225),
+			["Stump Field"] = CFrame.new(420, 117, -178),
+			["MountainTop Field"] = CFrame.new(76, 176, -181),
+			["Mushroom Field"] = CFrame.new(-91, 4, 116),
+			["Pepper Patch"] = CFrame.new(-486, 124, 517),
+			["Pineapple Field"] = CFrame.new(262, 68, -201),
+			["PineTree Field"] = CFrame.new(-338, 69, -180),
+			["Pumpkin Field"] = CFrame.new(-186, 68.5, -194),
+			["Rose Field"] = CFrame.new(-322, 20, 124),
+			["Spider Field"] = CFrame.new(-57.2, 20, -5.3),
+			["StrawBerry Field"] = CFrame.new(-179, 20, -14),
+			["Sunflower Field"] = CFrame.new(-208, 4, 185)
+		}
+		local function L_138_func()
+			local L_139_ = L_137_[L_20_]
+			if L_139_ then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_139_
+			end
+		end
+		L_138_func()
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
+			if shared.a12 then
+				wait(5)
+				L_138_func()
+			end
+		end)
+		while shared.a12 do
+			local L_140_ = game.Players.LocalPlayer
+			local L_141_ = game:GetService("TweenService")
+			local L_142_ = TweenInfo.new(0.1)
+			local L_143_ = L_140_.Character.HumanoidRootPart.Position
+			local L_144_ = L_137_[L_20_]
+			local L_145_ = (L_143_ - L_144_.Position).Magnitude
+			if L_145_ > 40 then
+				L_140_.Character.HumanoidRootPart.CFrame = L_144_
+			end
+			local L_146_ = L_23_func(L_143_)
+			local L_147_ = L_24_func(L_143_)
+			local L_148_ = L_25_func(L_143_)
+			local L_149_, L_150_ = L_26_func(L_143_)
+			if shared.farmFlames and L_146_ and L_22_func(L_146_.Position, L_144_.Position) then
+				local L_151_ = L_146_.Position
+				local L_152_ = CFrame.new(L_151_.X, L_140_.Character.HumanoidRootPart.Position.Y, L_151_.Z)
+				local L_153_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+					CFrame = L_152_
+				})
+				L_153_:Play()
+				L_153_.Completed:Wait()
+			elseif shared.farmBubbles and L_147_ and L_22_func(L_147_.Position, L_144_.Position) then
+				local L_154_ = L_147_.Position
+				local L_155_ = CFrame.new(L_154_.X, L_140_.Character.HumanoidRootPart.Position.Y, L_154_.Z)
+				local L_156_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+					CFrame = L_155_
+				})
+				L_156_:Play()
+				L_156_.Completed:Wait()
+			elseif shared.farmStars and L_148_ and L_22_func(L_148_.Position, L_144_.Position) then
+				local L_157_ = L_148_.Position
+				local L_158_ = CFrame.new(L_157_.X, L_140_.Character.HumanoidRootPart.Position.Y, L_157_.Z)
+				local L_159_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+					CFrame = L_158_
+				})
+				L_159_:Play()
+				L_159_.Completed:Wait()
+			elseif shared.farmBalloons and L_149_ and L_150_ then
+				local L_160_ = 10
+				local L_161_ = {}
+				for L_162_forvar0, L_163_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					if L_163_forvar1.Transparency == 0 and (L_163_forvar1.Position - L_150_).Magnitude <= L_160_ then
+						table.insert(L_161_, L_163_forvar1)
+					end
+				end
+				if #L_161_ > 0 then
+					for L_164_forvar0, L_165_forvar1 in ipairs(L_161_) do
+						local L_166_ = L_165_forvar1.Position
+						local L_167_ = CFrame.new(L_166_.X, L_140_.Character.HumanoidRootPart.Position.Y, L_166_.Z)
+						local L_168_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+							CFrame = L_167_
+						})
+						L_168_:Play()
+						L_168_.Completed:Wait()
+					end
+				else
+					local L_169_ = math.random() * math.pi * 2
+					local L_170_ = math.random() * L_160_
+					local L_171_ = math.cos(L_169_) * L_170_
+					local L_172_ = math.sin(L_169_) * L_170_
+					local L_173_ = Vector3.new(L_150_.X + L_171_, L_140_.Character.HumanoidRootPart.Position.Y, L_150_.Z + L_172_)
+					local L_174_ = CFrame.new(L_173_)
+					local L_175_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+						CFrame = L_174_
+					})
+					L_175_:Play()
+					L_175_.Completed:Wait()
+				end
+			else
+				for L_176_forvar0, L_177_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					local L_178_ = (L_177_forvar1.Position - L_143_).Magnitude
+					if L_177_forvar1.Transparency == 0 and L_178_ <= 40 then
+						local L_179_ = L_177_forvar1.Position
+						local L_180_ = (L_179_ - L_144_.Position).Magnitude
+						if L_180_ <= 40 then
+							local L_181_ = L_179_.X
+							local L_182_ = L_179_.Z
+							local L_183_ = CFrame.new(L_181_, L_140_.Character.HumanoidRootPart.Position.Y, L_182_)
+							local L_184_ = L_141_:Create(L_140_.Character.HumanoidRootPart, L_142_, {
+								CFrame = L_183_
+							})
+							L_184_:Play()
+						end
+					end
+				end
+			end
+			task.wait(0.2)
+		end
+	end)
+end
+
+function startWalkFarm()
+	spawn(function()
+		local L_185_ = {
+			["BamBoo Field"] = CFrame.new(93, 20, -25),
+			["Blue Field"] = CFrame.new(113.7, 4, 101.5),
+			["Cactus Field"] = CFrame.new(-194, 68, -107),
+			["Clover Field"] = CFrame.new(174, 34, 189),
+			["Coconut Field"] = CFrame.new(-255, 72, 459),
+			["Dandelion Field"] = CFrame.new(-30, 4, 225),
+			["Stump Field"] = CFrame.new(420, 117, -178),
+			["MountainTop Field"] = CFrame.new(76, 176, -181),
+			["Mushroom Field"] = CFrame.new(-91, 4, 116),
+			["Pepper Patch"] = CFrame.new(-486, 124, 517),
+			["Pineapple Field"] = CFrame.new(262, 68, -201),
+			["PineTree Field"] = CFrame.new(-338, 69, -180),
+			["Pumpkin Field"] = CFrame.new(-186, 68.5, -194),
+			["Rose Field"] = CFrame.new(-322, 20, 124),
+			["Spider Field"] = CFrame.new(-57.2, 20, -5.3),
+			["StrawBerry Field"] = CFrame.new(-179, 20, -14),
+			["Sunflower Field"] = CFrame.new(-208, 4, 185)
+		}
+		local function L_186_func()
+			local L_187_ = L_185_[L_20_]
+			if L_187_ then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_187_
+			end
+		end
+		L_186_func()
+		game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Died:Connect(function()
+			if shared.a13 then
+				wait(5)
+				L_186_func()
+			end
+		end)
+		while shared.a13 do
+			local L_188_ = game.Players.LocalPlayer
+			local L_189_ = L_188_.Character
+			local L_190_ = L_189_:FindFirstChild("Humanoid")
+			local L_191_ = L_189_.HumanoidRootPart.Position
+			local L_192_ = L_185_[L_20_]
+			local L_193_ = (L_191_ - L_192_.Position).Magnitude
+			if L_193_ > 40 then
+				L_189_.HumanoidRootPart.CFrame = L_192_
+			end
+			local L_194_ = L_23_func(L_191_)
+			local L_195_ = L_24_func(L_191_)
+			local L_196_ = L_25_func(L_191_)
+			local L_197_, L_198_ = L_26_func(L_191_)
+			if shared.farmFlames and L_194_ and L_22_func(L_194_.Position, L_192_.Position) then
+				L_190_:MoveTo(Vector3.new(L_194_.Position.X, L_189_.HumanoidRootPart.Position.Y, L_194_.Position.Z))
+				L_190_.MoveToFinished:Wait()
+			elseif shared.farmBubbles and L_195_ and L_22_func(L_195_.Position, L_192_.Position) then
+				L_190_:MoveTo(Vector3.new(L_195_.Position.X, L_189_.HumanoidRootPart.Position.Y, L_195_.Position.Z))
+				L_190_.MoveToFinished:Wait()
+			elseif shared.farmStars and L_196_ and L_22_func(L_196_.Position, L_192_.Position) then
+				L_190_:MoveTo(Vector3.new(L_196_.Position.X, L_189_.HumanoidRootPart.Position.Y, L_196_.Position.Z))
+				L_190_.MoveToFinished:Wait()
+			elseif shared.farmBalloons and L_197_ and L_198_ then
+				local L_199_ = 10
+				local L_200_ = {}
+				for L_201_forvar0, L_202_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					if L_202_forvar1.Transparency == 0 and (L_202_forvar1.Position - L_198_).Magnitude <= L_199_ then
+						table.insert(L_200_, L_202_forvar1)
+					end
+				end
+				if #L_200_ > 0 then
+					for L_203_forvar0, L_204_forvar1 in ipairs(L_200_) do
+						L_190_:MoveTo(Vector3.new(L_204_forvar1.Position.X, L_189_.HumanoidRootPart.Position.Y, L_204_forvar1.Position.Z))
+						L_190_.MoveToFinished:Wait()
+					end
+				else
+					local L_205_ = math.random() * math.pi * 2
+					local L_206_ = math.random() * L_199_
+					local L_207_ = math.cos(L_205_) * L_206_
+					local L_208_ = math.sin(L_205_) * L_206_
+					local L_209_ = Vector3.new(L_198_.X + L_207_, L_189_.HumanoidRootPart.Position.Y, L_198_.Z + L_208_)
+					L_190_:MoveTo(L_209_)
+					L_190_.MoveToFinished:Wait()
+				end
+			else
+				for L_210_forvar0, L_211_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+					local L_212_ = (L_211_forvar1.Position - L_191_).Magnitude
+					if L_211_forvar1.Transparency == 0 and L_212_ <= 40 then
+						local L_213_ = L_211_forvar1.Position
+						local L_214_ = (L_213_ - L_192_.Position).Magnitude
+						if L_214_ <= 40 then
+							L_190_:MoveTo(Vector3.new(L_213_.X, L_189_.HumanoidRootPart.Position.Y, L_213_.Z))
+							L_190_.MoveToFinished:Wait()
+						end
+					end
+				end
+			end
+			task.wait(0.1)
+		end
+	end)
+end
+
+
+
+L_11_:AddToggle({
+	Name = "Auto Sell",
+	Default = false,
+	Callback = function(L_215_arg0)
+		shared.autoSell = L_215_arg0
+		if shared.autoSell then
+			spawn(function()
+				while shared.autoSell do
+					local L_216_ = game.Players.LocalPlayer
+					local L_217_ = L_216_.CoreStats.Capacity.Value
+					local L_218_ = L_216_.CoreStats.Pollen.Value
+					if L_218_ >= L_217_ * 0.99 then
+						local L_219_ = L_216_.Character.HumanoidRootPart.CFrame
+						local L_220_ = shared.a11 or shared.a12 or shared.a13
+						local L_221_ = tostring(L_216_.Honeycomb.Value)
+						shared.a11, shared.a12, shared.a13 = false, false, false
+						for L_222_forvar0 = 1, 5 do
+							L_216_.Character.HumanoidRootPart.CFrame = workspace.Honeycombs[L_221_].LightHolder.CFrame * CFrame.new(0, 5, -5)
+							task.wait(0.1)
+						end
+						repeat
+							local L_223_ = L_216_.PlayerGui.ScreenGui.ActivateButton.TextBox.Text
+							if L_223_ == 'Make Honey' then
+								game.ReplicatedStorage.Events.PlayerHiveCommand:FireServer("ToggleHoneyMaking")
+							end
+							task.wait()
+						until L_216_.CoreStats.Pollen.Value == 0 or not shared.autoSell
+						if shared.autoSell then
+							if L_220_ then
+								if L_21_ == "Tween" then
+									shared.a11 = true
+									startTweenFarm()
+								elseif L_21_ == "TweenFast" then
+									shared.a12 = true
+									startTweenFastFarm()
+								elseif L_21_ == "Walk" then
+									shared.a13 = true
+									startWalkFarm()
+								end
+							else
+								L_216_.Character.HumanoidRootPart.CFrame = L_219_
+							end
+						end
+					end
+					task.wait(8)
+				end
+			end)
+		end
+	end    
+})
+
+
+
+local L_27_ = L_11_:AddSection({
+	Name = "Other"
+})
+
+L_11_:AddToggle({
+	Name = "Auto Use Micro-Converter",
+	Default = false,
+	Callback = function(L_224_arg0)
+		getgenv().turnoff4 = L_224_arg0
+		while turnoff4 == true do
+			local L_225_ = game:GetService("Players").LocalPlayer
+			local L_226_ = L_225_.Character:FindFirstChild("ProgressLabel", true)
+			local L_227_ = tonumber(L_226_.Text:match("%d+$"))
+			wait(0.1)
+			if L_225_.CoreStats.Pollen.Value >= L_227_ then
+				local L_228_ = {
+					["Name"] = "Micro-Converter"
+				}
+				Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+				Event:FireServer(L_228_)
+			end
+		end
+	end
+})
+L_11_:AddToggle({
+	Name = "Auto Use Instant Converter",
+	Default = false,
+	Callback = function(L_229_arg0)
+		getgenv().turnoff4 = L_229_arg0
+		while turnoff4 == true do
+			local L_230_ = game:GetService("Players").LocalPlayer
+			local L_231_ = L_230_.Character:FindFirstChild("ProgressLabel", true)
+			local L_232_ = tonumber(L_231_.Text:match("%d+$"))
+			wait(0.3)
+			if L_230_.CoreStats.Pollen.Value >= L_232_ then
+				do
+					local L_233_ = {
+						[1] = "Instant Converter"
+					}
+					game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(L_233_))
+				end
+				wait(0.3)
+			elseif L_230_.CoreStats.Pollen.Value >= L_232_ then
+				do
+					zakharpidor = {
+						[1] = "Instant Converter B"
+					}
+					game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(zakharpidor))
+					wait(0.3)
+				end
+			elseif L_230_.CoreStats.Pollen.Value >= L_232_ then
+				do
+					zakharpidor = {
+						[1] = "Instant Converter C"
+					}
+					game:GetService("ReplicatedStorage").Events.ToyEvent:FireServer(unpack(zakharpidor))
+				end
+			end
+		end
+	end
+})
+
+L_11_:AddToggle({
+	Name = "Auto Use Coconut",
+	Default = false,
+	Callback = function(L_234_arg0)
+		getgenv().turnoff4 = L_234_arg0
+		while turnoff4 == true do
+			local L_235_ = {
+				["Name"] = "Coconut"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+			Event:FireServer(L_235_)
+			wait(11)
+		end
+	end
+})
+L_11_:AddToggle({
+	Name = "Auto Use Gumdrops",
+	Default = false,
+	Callback = function(L_236_arg0)
+		getgenv().turnoff4 = L_236_arg0
+		while turnoff4 == true do
+			local L_237_ = {
+				["Name"] = "Gumdrops"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+			Event:FireServer(L_237_)
+			wait(3)
+		end
+	end
+})
+
+local L_28_ = L_16_:AddSection({
+	Name = "Mask"
+})
+
+L_16_:AddDropdown({
+	Name = "Equip Mask",
+	Default = "nil",
+	Options = {
+		"Gummy Mask",
+		"Demon Mask",
+		"Diamond Mask",
+		"Bubble Mask",
+		"Fire Mask",
+		"Honey Mask",
+	},
+	Callback = function(L_238_arg0)
+		if L_238_arg0 == "Gummy Mask" then
+			A_1 = "Equip"
+			A_2 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Gummy Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_1, A_2)
+		elseif L_238_arg0 == "Demon Mask" then
+			A_3 = "Equip"
+			A_4 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Demon Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_3, A_4)
+		elseif L_238_arg0 == "Diamond Mask" then
+			A_5 = "Equip"
+			A_6 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Diamond Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_5, A_6)
+		elseif L_238_arg0 == "Bubble Mask" then
+			A_7 = "Equip"
+			A_8 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Bubble Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_7, A_8)
+		elseif L_238_arg0 == "Fire Mask" then
+			A_9 = "Equip"
+			A_10 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Fire Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_9, A_10)
+		elseif L_238_arg0 == "Honey Mask" then
+			A_11 = "Equip"
+			A_12 = {
+				["Mute"] = true
+    ,
+				["Type"] = "Honey Mask",
+				["Category"] = "Accessory"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.ItemPackageEvent
+			Event:InvokeServer(A_11, A_12)
+		end
+	end
+})
+
+
+-- BeeSmas / Three
+
+L_12_:AddButton({
+	Name = "Bee Bear Teleport",
+	Default = false,
+	Callback = function(L_239_arg0)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-38.666648864746094, 6.3912272453308105, 283.1805419921875)
+	end
+})
+
+local L_29_ = L_12_:AddSection({
+	Name = "SnowFlakes"
+})
+
+local L_30_ = false
+
+L_12_:AddToggle({
+	Name = "SnowFlakes Farm",
+	Default = false,
+	Callback = function(L_240_arg0)
+		L_30_ = L_240_arg0
+		if L_30_ then
+			farmSnowflakes()
+		end
+	end
+})
+
+local L_31_ = workspace:WaitForChild"Particles":WaitForChild"Snowflakes"
+local L_32_ = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+
+function chatmsg(L_241_arg0, L_242_arg1)
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = L_241_arg0;
+		Color = L_242_arg1
+	})
+end
+
+function notif(L_243_arg0, L_244_arg1, L_245_arg2)
+	game.StarterGui:SetCore("SendNotification", {
+		Title = L_243_arg0;
+		Text = L_244_arg1;
+		Duration = L_245_arg2;
+	})
+end
+
+function getsnowflake()
+	if #L_31_:GetChildren() ~= 0 then
+		return L_31_:GetChildren()[math.random(1, #L_31_:GetChildren())]
+	else
+		notif("SnowWare", "No SnowFlakes Found", 5)
+		getsnowflake()
+		task.wait(0.1)
+	end
+end
+
+function farmSnowflakes()
+	while L_30_ do
+		L_32_ = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+		selectedsnowflake = getsnowflake()
+		collecttick = tick()
+		repeat
+			task.wait()
+			game:GetService("TweenService"):Create(L_32_.HumanoidRootPart, TweenInfo.new(1), {
+				CFrame = selectedsnowflake.CFrame + Vector3.new(0, 15, 0)
+			}):Play()
+			L_32_.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+		until (tick() - collecttick > 3) or not L_30_ -- time fly before collect this
+		task.wait(4) -- wait time before collect next
+	end
+end
+
+chatmsg(info, Color3.fromRGB(107, 170, 253))
+
+local L_33_ = L_12_:AddSection({
+	Name = "Gift Teleport"
+})
+
+L_12_:AddDropdown({
+	Name = "Teleport To Present - ",
+	Default = "Black Bearl",
+	Options = {
+		"Gift 3",
+		"Gift 4",
+		"Gift 6",
+		"Gift 8",
+		"Gift 9",
+		"Gift 10",
+		"Gift 11",
+		"Gift 13",
+		"Gift 14",
+		"Gift 16",
+	},
+	Callback = function(L_246_arg0)
+		if L_246_arg0 == "Gift 3" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(39, 5, 99)
+		elseif L_246_arg0 == "Gift 3" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(86, 4.6, 294)
+		elseif L_246_arg0 == "Gift 4" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-277, 18, 386.8)
+		elseif L_246_arg0 == "Gift 6" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-449, 69, -97.5)
+		elseif L_246_arg0 == "Gift 8" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(327.6, 195, -229.5)
+		elseif L_246_arg0 == "Gift 9" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-55.7, 41.5, 719.8)
+		elseif L_246_arg0 == "Gift 10" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-421.7, 72.8, 437.6)
+		elseif L_246_arg0 == "Gift 11" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-453, 122.8, 336.5)
+		elseif L_246_arg0 == "Gift 13" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(488, 180, -329)
+		elseif L_246_arg0 == "Gift 14" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(33.4, 235.8, -581.9)
+		elseif L_246_arg0 == "Gift 16" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-19.8, 231.5, -121.3)
+		end
+	end
+})
+
+
+-- Player / Four
+
+local L_34_ = false
+local L_35_ = false
+local L_36_
+local L_37_
+local L_38_
+local L_39_
+
+local function L_40_func()
+	local L_247_ = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+	L_36_ = L_247_.Humanoid.WalkSpeed
+	L_37_ = L_247_.Humanoid.JumpPower
+end
+
+L_40_func()
+
+local L_41_ = L_15_:AddSection({
+	Name = "Player Speed"
+})
+
+L_15_:AddToggle({
+	Name = "Enable Speed",
+	Default = false,
+	Callback = function(L_248_arg0)
+		L_34_ = L_248_arg0
+		if not L_34_ then
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = L_36_
+		end
+	end    
+})
+
+L_15_:AddTextbox({
+	Name = "Set Speed 1-150",
+	Default = tostring(math.floor(L_36_)),
+	TextDisappear = true,
+	Callback = function(L_249_arg0)
+		local L_250_ = tonumber(L_249_arg0)
+		if L_250_ and L_250_ >= 1 and L_250_ <= 150 then
+			L_38_ = math.floor(L_250_)
+			L_15_.Character.Humanoid.WalkSpeed = L_38_
+		end
+	end
+})
+
+local L_42_ = L_15_:AddSection({
+	Name = "Player Jump Power"
+})
+
+L_15_:AddToggle({
+	Name = "Enable Jump Power",
+	Default = false,
+	Callback = function(L_251_arg0)
+		L_35_ = L_251_arg0
+		if not L_35_ then
+			game.Players.LocalPlayer.Character.Humanoid.JumpPower = L_37_
+		end
+	end    
+})
+
+L_15_:AddTextbox({
+	Name = "Set Jump Power 1-200",
+	Default = tostring(math.floor(L_37_)),
+	TextDisappear = true,
+	Callback = function(L_252_arg0)
+		local L_253_ = tonumber(L_252_arg0)
+		if L_253_ and L_253_ >= 1 and L_253_ <= 200 then
+			L_39_ = math.floor(L_253_)
+			L_15_.Character.Humanoid.JumpPower = L_39_
+		end
+	end
+})
+
+game:GetService("RunService").Heartbeat:Connect(function()
+	if L_34_ then
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = L_38_
+	end
+	if L_35_ then
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = L_39_
+	end
+end)
+
+local L_43_ = L_15_:AddSection({
+	Name = "Misc"
+})
+
+local L_44_ = false
+
+L_15_:AddToggle({
+	Name = "Noclip",
+	Default = false,
+	Callback = function(L_254_arg0)
+		L_44_ = L_254_arg0
+	end    
+})
+
+game:GetService('RunService').Stepped:Connect(function()
+	if L_44_ then
+		for L_255_forvar0, L_256_forvar1 in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+			if L_256_forvar1:IsA('BasePart') and L_256_forvar1.CanCollide then
+				L_256_forvar1.CanCollide = false
+			end
+		end
+	end
+end)
+
+-- Teleports | Four
+
+local L_45_ = L_16_:AddSection({
+	Name = "Teleports"
+})
+
+L_16_:AddButton({
+	Name = "TP To Hive",
+	Callback = function()
+		local L_257_ = game:GetService("Players").LocalPlayer
+		L_257_.Character:MoveTo(L_257_.SpawnPos.Value.p)
+	end    
+})
+
+L_16_:AddDropdown({
+	Name = "Teleport To Shop - ",
+	Default = "Black Bearl",
+	Options = {
+		"Bee Shop",
+		"First Tool Shop",
+		"Second Tool Shop (15+ bees)",
+		"MountainTop Shop (25+ bees)",
+		"Spirit Shop (35+ bees)",
+		"Dapper Bear's Shop",
+		"GumBall Shop",
+		"Blue Clubhouse",
+		"Red Clubhouse",
+		"Ticket Shop",
+		"RoyalJelly Shop",
+		"Ticket RoyalJelly Shop",
+		"Treat Shop",
+		"Moon",
+		"Nuoc"
+	},
+	Callback = function(L_258_arg0)
+		if L_258_arg0 == "Bee Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-136.8, 4.6, 243.4)
+		elseif L_258_arg0 == "First Tool Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(86, 4.6, 294)
+		elseif L_258_arg0 == "Second Tool Shop (15+ bees)" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(165, 69, -161)
+		elseif L_258_arg0 == "MountainTop Shop (25+ bees)" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-18, 176, -137)
+		elseif L_258_arg0 == "Spirit Shop (35+ bees)" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-501, 52, 474)
+		elseif L_258_arg0 == "Dapper Bear's Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(456.7, 137.9, -313.8)
+		elseif L_258_arg0 == "GumBall Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(269, 25257.55, -724.2)
+		elseif L_258_arg0 == "Blue Clubhouse" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(292, 4, 98)
+		elseif L_258_arg0 == "Red Clubhouse" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-334, 21, 216)
+		elseif L_258_arg0 == "Ticket Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-12.8, 184, -222.2)
+		elseif L_258_arg0 == "RoyalJelly Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-297, 53, 68)
+		elseif L_258_arg0 == "Ticket RoyalJelly Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(81, 18, 240)
+		elseif L_258_arg0 == "Treat Shop" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-228.2, 5, 89.4)
+		elseif L_258_arg0 == "Moon" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(21, 88, -54)
+		elseif L_258_arg0 == "Nuoc" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-426, 70, 38)
+		end
+	end
+})
+
+
+L_16_:AddDropdown({
+	Name = "Teleport To Bear - ",
+	Default = "Black Bearl",
+	Options = {
+		"Black Bear",
+		"Brown Bear",
+		"Panda Bear",
+		"Polar Bear",
+		"Science Bear",
+		"Mother Bear",
+		"Spirit Bear",
+		"Gummy Bear",
+		"Onett",
+		"Tunnel Bear",
+		"Stick Bug",
+	},
+	Callback = function(L_259_arg0)
+		if L_259_arg0 == "Black Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-258.1, 5, 299.7)
+		elseif L_259_arg0 == "Brown Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(282, 46, 236)
+		elseif L_259_arg0 == "Panda Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(106.3, 35, 50.1)
+		elseif L_259_arg0 == "Polar Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-106, 119, -77)
+		elseif L_259_arg0 == "Science Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(267, 103, 20)
+		elseif L_259_arg0 == "Mother Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-183.898, 5.64093, 83.4582)
+		elseif L_259_arg0 == "Spirit Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-363.936, 105.284, 485.853)
+		elseif L_259_arg0 == "Gummy Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(271.624, 25292.9, -850.958)
+		elseif L_259_arg0 == "Tunnel Bear" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(313.654, 6.81172, -46.9131)
+		elseif L_259_arg0 == "Onett" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9.41592, 232.791, -520.278)
+		elseif L_259_arg0 == "Stick Bug" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-129.2, 50.0709, 148.288)
+		end
+	end
+})
+
+L_16_:AddDropdown({
+	Name = "Teleport To Field - ",
+	Default = "BamBoo Fieldd",
+	Options = {
+		"BamBoo Field",
+		"Blue Field",
+		"Cactus Field",
+		"Clover Field",
+		"Coconut Field",
+		"Dandelion Field",
+		"Stump Field",
+		"MountainTop Field",
+		"Mushroom Field",
+		"Pepper Patch",
+		"Pineapple Field",
+		"PineTree Field",
+		"Pumpkin Field",
+		"Rose Field",
+		"Spider Field",
+		"StrawBerry Field",
+		"Sunflower Field",
+	},
+	Callback = function(L_260_arg0)
+		if L_260_arg0 == "BamBoo Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(93, 20, -25)
+		elseif L_260_arg0 == "Blue Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113.7, 4, 101.5)
+		elseif L_260_arg0 == "Cactus Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-194, 68, -107)
+		elseif L_260_arg0 == "Clover Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(174, 34, 189)
+		elseif L_260_arg0 == "Coconut Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-255, 72, 459)
+		elseif L_260_arg0 == "Dandelion Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-30, 4, 225)
+		elseif L_260_arg0 == "Stump Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(420, 117, -178)
+		elseif L_260_arg0 == "MountainTop Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(76, 176, -181)
+		elseif L_260_arg0 == "Mushroom Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-91, 4, 116)
+		elseif L_260_arg0 == "Pepper Patch" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-486, 124, 517)
+		elseif L_260_arg0 == "Pineapple Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(262, 68, -201)
+		elseif L_260_arg0 == "PineTree Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-318, 68, -150)
+		elseif L_260_arg0 == "Pumpkin Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-486, 124, 517)
+		elseif L_260_arg0 == "Pineapple Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-194, 68, -182)
+		elseif L_260_arg0 == "Rose Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-322, 20, 124)
+		elseif L_260_arg0 == "Spider Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-57.2, 20, -5.3)
+		elseif L_260_arg0 == "StrawBerry Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(262, 68, -201)
+		elseif L_260_arg0 == "Sunflower Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-208, 4, 185)
+		end
+	end
+})
+
+L_16_:AddDropdown({
+	Name = "Teleport To Booster - ",
+	Default = "BamBoo Fieldd",
+	Options = {
+		"Ant",
+		"Bluefield Boost",
+		"Blueberry Dispenser",
+		"Club Honey",
+		"Gumdrop Dispenser",
+		"Glue Dispenser",
+		"Honeystorm Dispensor",
+		"Instant Honey Convertor",
+		"MountainTop Boost",
+		"Nectar Condenser",
+		"Redfield Boost",
+		"Sprout Dispenser",
+		"Star Hut",
+		"Strawberry Dispenser",
+		"Treat Dispenser",
+	},
+	Callback = function(L_261_arg0)
+		if L_261_arg0 == "Ant" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(125, 32, 495)
+		elseif L_261_arg0 == "Blue Field" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(113.7, 4, 101.5)
+		elseif L_261_arg0 == "Bluefield Boost" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(272, 58, 86)
+		elseif L_261_arg0 == "Blueberry Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(307, 5, 134)
+		elseif L_261_arg0 == "Club Honey" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(44.8, 5, 319.6)
+		elseif L_261_arg0 == "Gumdrop Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(68, 21.8, 26)
+		elseif L_261_arg0 == "Glue Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(269, 25257.546875, -724)
+		elseif L_261_arg0 == "Honeystorm Dispensor" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(238.4, 33.3, 165.6)
+		elseif L_261_arg0 == "Instant Honey Convertor" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(282, 68, -62)
+		elseif L_261_arg0 == "MountainTop Boost" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-40, 176, -191.7)
+		elseif L_261_arg0 == "Nectar Condenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-416.7, 101.5, 342.8)
+		elseif L_261_arg0 == "Redfield Boost" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-315.5, 21, 240)
+		elseif L_261_arg0 == "Sprout Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-269.26, 26.56, 267.31)
+		elseif L_261_arg0 == "Star Hut" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(135.9, 64.6, 322.1)
+		elseif L_261_arg0 == "Strawberry Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-320.5, 46, 272.5)
+		elseif L_261_arg0 == "Treat Dispenser" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(193.9, 68, -123)
+		end
+	end
+})
+
+local L_46_ = L_14_:AddSection({
+	Name = "Dispensers"
+})
+
+L_14_:AddButton({
+	Name = "Use All Dispensers",
+	Callback = function()
+		local L_262_ = "Glue Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Wealth Clock"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Coconut Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Strawberry Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Treat Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Free Ant Pass Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Blueberry Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Honey Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+		L_262_ = "Free Royal Jelly Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_262_)
+	end
+})
+
+L_14_:AddToggle({
+	Name = "Auto Use All Dispensers",
+	Default = false,
+	Callback = function(L_263_arg0)
+		getgenv().turnoff5 = L_263_arg0
+		while turnoff5 == true do
+			local L_264_ = "Glue Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Wealth Clock"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Coconut Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Strawberry Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Treat Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Free Ant Pass Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Blueberry Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Honey Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			L_264_ = "Free Royal Jelly Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_264_)
+			wait(10)
+		end
+	end
+})
+L_14_:AddButton({
+	Name = "Use Glue Dispenser",
+	Callback = function()
+		local L_265_ = "Glue Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_265_)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Glue Dispenser",
+	Default = false,
+	Callback = function(L_266_arg0)
+		getgenv().turnoff4 = L_266_arg0
+		while turnoff4 == true do
+			local L_267_ = "Glue Dispenser"
+			local L_268_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+			L_268_:FireServer(L_267_)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Wealth Clock",
+	Callback = function()
+		A_1 = "Wealth Clock"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Wealth Clock",
+	Default = false,
+	Callback = function(L_269_arg0)
+		getgenv().turnoff4 = L_269_arg0
+		while turnoff4 == true do
+			A_1 = "Wealth Clock"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Coconut Dispenser",
+	Callback = function()
+		A_1 = "Coconut Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Coconut Dispenser",
+	Default = false,
+	Callback = function(L_270_arg0)
+		getgenv().turnoff4 = L_270_arg0
+		while turnoff4 == true do
+			A_1 = "Coconut Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Strawberry Dispenser",
+	Callback = function()
+		A_1 = "Strawberry Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Strawberry Dispenser",
+	Default = false,
+	Callback = function(L_271_arg0)
+		getgenv().turnoff4 = L_271_arg0
+		while turnoff4 == true do
+			A_1 = "Strawberry Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Treat Dispenser",
+	Callback = function()
+		A_1 = "Treat Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Treat Dispenser",
+	Default = false,
+	Callback = function(L_272_arg0)
+		getgenv().turnoff4 = L_272_arg0
+		while turnoff4 == true do
+			A_1 = "Treat Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Free Ant Pass Dispenser",
+	Callback = function()
+		A_1 = "Free Ant Pass Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Free Ant Pass Dispenser",
+	Default = false,
+	Callback = function(L_273_arg0)
+		getgenv().turnoff4 = L_273_arg0
+		while turnoff4 == true do
+			A_1 = "Free Ant Pass Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Blueberry Dispenser",
+	Callback = function()
+		A_1 = "Blueberry Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Blueberry Dispenser",
+	Default = false,
+	Callback = function(L_274_arg0)
+		getgenv().turnoff4 = L_274_arg0
+		while turnoff4 == true do
+			A_1 = "Blueberry Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Honey Dispenser",
+	Callback = function()
+		A_1 = "Honey Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Honey Dispenser",
+	Default = false,
+	Callback = function(L_275_arg0)
+		getgenv().turnoff4 = L_275_arg0
+		while turnoff4 == true do
+			A_1 = "Honey Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Free Royal Jelly Dispenser",
+	Callback = function()
+		A_1 = "Free Royal Jelly Dispenser"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(A_1)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Free Royal Jelly Dispenser",
+	Default = false,
+	Callback = function(L_276_arg0)
+		getgenv().turnoff4 = L_276_arg0
+		while turnoff4 == true do
+			A_1 = "Free Royal Jelly Dispenser"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(A_1)
+			wait(10)
+		end
+	end    
+})
+
+local L_47_ = L_14_:AddSection({
+	Name = "Dices"
+})
+
+L_14_:AddButton({
+	Name = "Use Field Dice",
+	Callback = function()
+		local L_277_ = {
+			["Name"] = "Field Dice"
+		}
+		local L_278_ = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		L_278_:FireServer(L_277_)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Field Dice",
+	Default = false,
+	Callback = function(L_279_arg0)
+		getgenv().turnoff4 = L_279_arg0
+		while turnoff4 == true do
+			local L_280_ = {
+				["Name"] = "Field Dice"
+			}
+			local L_281_ = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+			L_281_:FireServer(L_280_)
+			wait(3)
+		end
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Smooth Dice",
+	Callback = function()
+		local L_282_ = {
+			["Name"] = "Smooth Dice"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_282_)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Smooth Dice",
+	Default = false,
+	Callback = function(L_283_arg0)
+		getgenv().turnoff4 = L_283_arg0
+		while turnoff4 == true do
+			local L_284_ = {
+				["Name"] = "Smooth Dice"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+			Event:FireServer(L_284_)
+			wait(3)
+		end
+	end    
+}) 
+L_14_:AddButton({
+	Name = "Use Loaded Dice",
+	Callback = function()
+		local L_285_ = {
+			["Name"] = "Loaded Dice"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_285_)
+	end    
+})
+L_14_:AddToggle({
+	Name = "Auto Use Loaded Dice",
+	Default = false,
+	Callback = function(L_286_arg0)
+		getgenv().turnoff4 = L_286_arg0
+		while turnoff4 == true do
+			local L_287_ = {
+				["Name"] = "Loaded Dice"
+			}
+			Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+			Event:FireServer(L_287_)
+			wait(3)
+		end
+	end    
+}) 
+
+local L_48_ = L_14_:AddSection({
+	Name = "Boosts"
+})
+
+L_14_:AddButton({
+	Name = "Use All Boosters",
+	Callback = function()
+		local L_288_ = "Red Field Booster"
+		local L_289_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+		L_289_:FireServer(L_288_)
+		local L_290_ = "Blue Field Booster"
+		L_289_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+		L_289_:FireServer(L_290_)
+		local L_291_ = "Field Booster"
+		L_289_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+		L_289_:FireServer(L_291_)
+	end
+})
+L_14_:AddToggle({
+	Name = "Auto Use All Field Booster",
+	Default = false,
+	Callback = function(L_292_arg0)
+		getgenv().turnoff4 = L_292_arg0
+		while turnoff4 == true do
+			local L_293_ = "Red Field Booster"
+			local L_294_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+			L_294_:FireServer(L_293_)
+			local L_295_ = "Blue Field Booster"
+			L_294_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+			L_294_:FireServer(L_295_)
+			local L_296_ = "Field Booster"
+			L_294_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+			L_294_:FireServer(L_296_)
+			wait(5)
+		end
+	end
+})
+L_14_:AddButton({
+	Name = "Use Red Field Booster",
+	Callback = function()
+		local L_297_ = "Red Field Booster"
+		local L_298_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+		L_298_:FireServer(L_297_)
+	end
+})
+L_14_:AddToggle({
+	Name = "Auto Use Red Field Booster",
+	Default = false,
+	Callback = function(L_299_arg0)
+		getgenv().turnoff4 = L_299_arg0
+		while turnoff4 == true do
+			local L_300_ = "Red Field Booster"
+			local L_301_ = game:GetService("ReplicatedStorage").Events.ToyEvent
+			L_301_:FireServer(L_300_)
+			wait(5)
+		end
+	end
+})
+L_14_:AddButton({
+	Name = "Use Blue Field Booster",
+	Callback = function()
+		local L_302_ = "Blue Field Booster"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_302_)
+	end
+})
+L_14_:AddToggle({
+	Name = "Auto Use Blue Field Booster",
+	Default = false,
+	Callback = function(L_303_arg0)
+		getgenv().turnoff4 = L_303_arg0
+		while turnoff4 == true do
+			local L_304_ = "Blue Field Booster"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_304_)
+			wait(5)
+		end
+	end
+})
+L_14_:AddButton({
+	Name = "Use Field Booster",
+	Callback = function()
+		local L_305_ = "Field Booster"
+		Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+		Event:FireServer(L_305_)
+	end
+})
+L_14_:AddToggle({
+	Name = "Auto Use Field Booster",
+	Default = false,
+	Callback = function(L_306_arg0)
+		getgenv().turnoff4 = L_306_arg0
+		while turnoff4 == true do
+			local L_307_ = "Field Booster"
+			Event = game:GetService("ReplicatedStorage").Events.ToyEvent
+			Event:FireServer(L_307_)
+			wait(5)
+		end
+	end
+})
+
+local L_49_ = L_14_:AddSection({
+	Name = "Buffs"
+})
+
+L_14_:AddButton({
+	Name = "Use All Buffs [no potions and Marshmallow Bee]",
+	Callback = function()
+		local L_308_ = {
+			["Name"] = "Red Extract"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_308_)
+		local L_309_ = {
+			["Name"] = "Blue Extract"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_309_)
+		local L_310_ = {
+			["Name"] = "Glitter"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_310_)
+		local L_311_ = {
+			["Name"] = "Glue"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_311_)
+		local L_312_ = {
+			["Name"] = "Oil"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_312_)
+		local L_313_ = {
+			["Name"] = "Enzymes"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_313_)
+		local L_314_ = {
+			["Name"] = "Tropical TDrink"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_314_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Red Extract",
+	Callback = function()
+		local L_315_ = {
+			["Name"] = "Red Extract"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(RedEx)
+	end
+})
+L_14_:AddButton({
+	Name = "Use Blue Extract",
+	Callback = function()
+		local L_316_ = {
+			["Name"] = "Blue Extract"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_316_)
+	end 
+})
+L_14_:AddButton({
+	Name = "Use Glitter",
+	Callback = function()
+		local L_317_ = {
+			["Name"] = "Glitter"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_317_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Glue",
+	Callback = function()
+		local L_318_ = {
+			["Name"] = "Glue"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_318_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Oil",
+	Callback = function()
+		local L_319_ = {
+			["Name"] = "Oil"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_319_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Enzymes",
+	Callback = function()
+		local L_320_ = {
+			["Name"] = "Enzymes"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_320_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Tropical Drink",
+	Callback = function()
+		local L_321_ = {
+			["Name"] = "Tropical Drink"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_321_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Purple Potion",
+	Callback = function()
+		local L_322_ = {
+			["Name"] = "Purple Potion"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_322_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Super Smoothie",
+	Callback = function()
+		local L_323_ = {
+			["Name"] = "Super Smoothie"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_323_)
+	end    
+})
+L_14_:AddButton({
+	Name = "Use Marshmallow Bee",
+	Callback = function()
+		local L_324_ = {
+			["Name"] = "Marshmallow Bee"
+		}
+		Event = game:GetService("ReplicatedStorage").Events.PlayerActivesCommand
+		Event:FireServer(L_324_)
+	end    
+})
+
+
+-- Mobs
+L_13_:AddToggle({
+	Name = "Kill Crab",
+	Default = false,
+	Callback = function(L_325_arg0)
+		shared.a5 = L_325_arg0
+		if shared.a5 then
+			local L_326_ = Instance.new("Part", game:GetService("Workspace"))
+			L_326_.Name = "Coconut Part"
+			L_326_.Anchored = true
+			L_326_.Transparency = 0.5
+			L_326_.Size = Vector3.new(6, 1, 6)
+			L_326_.Position = Vector3.new(-307.52117919922, 105.91863250732, 467.86791992188)
+			spawn(function()
+				while shared.a5 do
+					shared.a11 = false
+					shared.a12 = false
+					local L_327_ = game.Players.LocalPlayer
+					local L_328_ = game:GetService("TweenService")
+					local L_329_ = TweenInfo.new(0.1)
+					for L_330_forvar0, L_331_forvar1 in pairs(workspace.Collectibles:GetChildren()) do
+						local L_332_ = (L_331_forvar1.Position - L_327_.Character.HumanoidRootPart.Position).magnitude
+						if L_331_forvar1.Transparency == 0 then
+							if L_332_ <= 8 then
+								local L_333_ = L_331_forvar1.Position.x
+								local L_334_ = L_331_forvar1.Position.z
+								local L_335_ = CFrame.new(L_333_, L_327_.Character.HumanoidRootPart.Position.y, L_334_)
+								local L_336_ = L_328_:Create(L_327_.Character.HumanoidRootPart, L_329_, {
+									CFrame = L_335_
+								})
+								L_336_:Play()
+							end
+						end
+					end
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-307.52117919922, 110.91863250732, 467.86791992188)
+					task.wait(0.2)
+				end
+			end)
+		else
+			if workspace:FindFirstChild("Coconut Part") then
+				workspace["Coconut Part"]:Destroy()
+			end
+		end
+	end
+})
+
+L_13_:AddButton({
+	Name = "Kill Commando Chick",
+	Callback = function()
+		local L_337_ = Instance.new("Part", game:GetService("Workspace"))
+		L_337_.Name = "Commando Part"
+		L_337_.Anchored = true
+		L_337_.Transparency = 1
+		L_337_.Size = Vector3.new(10, 1, 10)
+		L_337_.Position = Vector3.new(532.56, 68.1981, 162.801)
+		wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(532.56, 68.1981, 162.801)
+	end    
+})
+L_13_:AddButton({
+	Name = "AFK Stump Snail",
+	Callback = function()
+		local L_338_ = Instance.new("Part", game:GetService("Workspace"))
+		L_338_.Name = "Coconut Part"
+		L_338_.Anchored = true
+		L_338_.Transparency = 1
+		L_338_.Size = Vector3.new(10, 1, 10)
+		L_338_.Position = Vector3.new(424.483276, 71.4255676, -174.810959, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(424.483276, 68.4255676, -174.810959, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+		wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(424.483276, 74.4255676, -174.810959, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+	end    
+})
+L_13_:AddButton({
+	Name = "Kill Tunnel Bear",
+	Callback = function()
+		local L_339_ = Instance.new("Part", game:GetService("Workspace"))
+		L_339_.Name = "Tunnel Part"
+		L_339_.Anchored = true
+		L_339_.Transparency = 1
+		L_339_.Size = Vector3.new(10, 1, 10)
+		L_339_.Position = Vector3.new(469.095, 23.2665, -46.3918)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(469.095, 7.2665, -46.3918)
+		wait(0.1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(469.095, 24.2665, -46.3918)
+	end
+})
+L_13_:AddToggle({
+	Name = "Auto Kill Mondo Chick [In testing]",
+	Default = false,
+	Callback = function(L_340_arg0)
+		getgenv().turnoff54 = L_340_arg0
+		if turnoff54 == true then
+			while turnoff54 == true do
+				mondopition = game.Workspace.Monsters["Mondo Chick (Lvl 8)"].Head.Position
+				api.tween(0.3, CFrame.new(mondopition.x, mondopition.y + 30, mondopition.z))
+				game.Players.LocalPlayer.Character.Humanoid.HipHeight = 40
+			end
+		else
+			game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3
+		end
+	end
+})
+L_13_:AddToggle({
+	Name = "Kill Windy Bee",
+	Callback = function(L_341_arg0)
+		getgenv().pon1 = L_341_arg0
+		if pon1 == true then
+			while pon1 == true do
+				wait(.3)
+				for L_343_forvar0, L_344_forvar1 in pairs(game.workspace.NPCBees:GetChildren()) do
+					if L_344_forvar1.Name == "Windy" then
+						game.Players.LocalPlayer.Character.Humanoid.HipHeight = 35
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = L_344_forvar1.CFrame
+					end
+				end
+				local L_342_ = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				for L_345_forvar0, L_346_forvar1 in next, game.workspace.Particles:GetChildren() do
+					for L_347_forvar0 in string.gmatch(L_346_forvar1.Name, "Windy") do
+						if string.find(L_346_forvar1.Name, "Windy") then
+							api.tween(1, CFrame.new(L_346_forvar1.Position.x, L_346_forvar1.Position.y, L_346_forvar1.Position.z))
+							task.wait(1)
+							api.tween(0.5, CFrame.new(L_346_forvar1.Position.x, L_346_forvar1.Position.y, L_346_forvar1.Position.z))
+							task.wait(.5)
+						end
+					end
+				end
+				for L_348_forvar0, L_349_forvar1 in next, game.workspace.Particles:GetChildren() do
+					for L_350_forvar0 in string.gmatch(L_349_forvar1.Name, "Windy") do
+						task.wait()
+						if string.find(L_349_forvar1.Name, "Windy") then
+							game.Players.LocalPlayer.Character.Humanoid.HipHeight = 20
+							for L_351_forvar0 = 1, 4 do
+								L_342_.CFrame = CFrame.new(L_349_forvar1.Position + 10, L_349_forvar1.Position + 50, L_349_forvar1.Position)
+								task.wait(.3)
+							end
+						end
+						task.wait(.1)
+					end
+				end
+			end
+		else
+			game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3
+		end
+	end 
+})
+L_13_:AddToggle({
+	Name = "Kill Viciuos Bee",
+	Default = false,
+	Callback = function(L_352_arg0)
+		getgenv().turnoff4 = L_352_arg0
+		if turnoff4 == true then
+			while turnoff4 == true do
+				wait()
+				local L_353_ = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+				for L_354_forvar0, L_355_forvar1 in next, game.workspace.Particles:GetChildren() do
+					for L_356_forvar0 in string.gmatch(L_355_forvar1.Name, "Vicious") do
+						task.wait()
+						if string.find(L_355_forvar1.Name, "Vicious") then
+							game.Players.LocalPlayer.Character.Humanoid.HipHeight = 20
+							for L_357_forvar0 = 1, 4 do
+								L_353_.CFrame = CFrame.new(L_355_forvar1.Position.x, L_355_forvar1.Position.y + 20, L_355_forvar1.Position.z)
+								task.wait(.3)
+							end
+						end
+					end
+				end
+			end
+			task.wait(.1)
+		else
+			game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3
+		end
+	end
+})
+
+L_11_:AddButton({
+	Name = "Collect Hidden Tokens!",
+	Callback = function()
+		for L_358_forvar0, L_359_forvar1 in L_5_.Collectibles:GetChildren() do
+			if L_359_forvar1.Transparency ~= 0 then
+				continue
+			end
+			local L_360_ = tick()
+			repeat
+				L_3_.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(L_359_forvar1.Position + Vector3.new(0, 1, 0))
+				task.wait()
+			until tick() - L_360_ > 4 or L_359_forvar1 == nil
+		end
+	end    
+})
+
+L_11_:AddButton({ 
+	Name = "Collect Hidden Stickers",
+	Callback = function()
+		L_6_.CollectHiddenStickers = value
+	end    
+})
+
+local L_50_ = L_17_:AddSection({
+	Name = "Honey Profit"
+})
