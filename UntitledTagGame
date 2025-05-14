@@ -1,0 +1,116 @@
+local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
+
+local Window = ArrayField:CreateWindow({
+   Name = "firebrandW script",
+   LoadingTitle = "join discord",
+   LoadingSubtitle = "by firebrandW",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "ArrayField"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "XW2RWpP9Rs", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "join discord for key",
+      Subtitle = "Key System",
+      Note = "join discord.gg/XW2RWpP9Rs",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using ArrayField may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like ArrayField to get the key from
+      Actions = {
+            [1] = {
+                Text = 'Click here to copy the key link <--',
+                OnPress = function()
+                    print('Pressed')
+                end,
+                }
+            },
+      Key = {"xxZxY$"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Tab Example", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("SAFE",false) -- The 2nd argument is to tell if its only a Title and doesnt contain element
+
+local Button = Tab:CreateButton({
+   Name = "Infinite Jump",
+   Interact = 'Click',
+   Callback = function()
+  _G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Chams",
+   Interact = 'Click',
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/EqwstreZ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Speed (HOLD X)",
+   Interact = 'Click',
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/Kxb0wAjJ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Hitbox Extender",
+   Interact = 'Click',
+   Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/YX9kxxtG'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Section = Tab:CreateSection("join discord",false)
+
+local Button = Tab:CreateButton({
+   Name = "more being added soon $$",
+   Interact = 'Click',
+   Callback = function()
+ -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "https://discord.gg/XW2RWpP9Rs",
+   Interact = 'Click',
+   Callback = function()
+ -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "press k to close",
+   Interact = 'Click',
+   Callback = function()
+ -- The function that takes place when the button is pressed
+   end,
+})
