@@ -1,0 +1,374 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "made by firebrandw",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Prison Life V4",
+   LoadingSubtitle = "join the discord",
+   Theme = "Amethyst", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = truue, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "XW2RWpP9Rs", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("info", "shield-alert")
+
+local Button = Tab:CreateButton({
+   Name = "some of these scripts ARE NOT mine",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "discord.gg/XW2RWpP9Rs",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "made by firebrandw",
+   Callback = function()
+   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Tab = Window:CreateTab("Player", "badge-dollar-sign")
+
+local Button = Tab:CreateButton({
+   Name = "Aimbot",
+   Callback = function()
+   Rayfield:Notify({
+   Title = "!",
+   Content = "use in first person or shift lock",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+ loadstring(game:HttpGet('https://pastebin.com/raw/wb3xYfcg'))() -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Chams/ESP",
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/EqwstreZ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "speed bypass (HOLD X)",
+   Callback = function()
+loadstring(game:HttpGet('https://pastebin.com/raw/Kxb0wAjJ'))()   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Infinite Jump",
+   Callback = function()
+  _G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end  -- The function that takes place when the button is pressed
+   end,
+})
+
+--------------------------------------------start
+local isTeleportEnabled = false
+
+local Toggle = Tab:CreateToggle({
+   Name = "Enable Ctrl+Click Teleport",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       isTeleportEnabled = Value
+   end,
+})
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local function onMouseClick()
+    if isTeleportEnabled then
+        local mouse = Players.LocalPlayer:GetMouse()
+        if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+            local targetPosition = mouse.Hit.p  -- Get the position of the mouse click
+            if targetPosition then
+                Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)  -- Teleport the player
+            end
+        end
+    end
+end
+
+-- Connect the function to the mouse click event
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.UserInputType == Enum.UserInputType.MouseButton1 then
+        onMouseClick()
+    end
+end)
+
+-------------------------------------------
+
+-- Flight Variables
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local flySpeed = 200 -- Increased speed for faster flight (adjust this value as needed)
+
+-- Function to start flying
+local function startFlying()
+    flying = true
+    
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.MaxForce = Vector3.new(1000000, 1000000, 1000000)
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    bodyVelocity.Parent = rootPart
+
+    local userInputService = game:GetService("UserInputService")
+    
+    -- Fly control while flying
+    while flying do
+        local moveDirection = Vector3.new(0, 0, 0)
+
+        -- Controls based on user input
+        if userInputService:IsKeyDown(Enum.KeyCode.W) then
+            moveDirection = moveDirection + workspace.CurrentCamera.CFrame.LookVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.S) then
+            moveDirection = moveDirection - workspace.CurrentCamera.CFrame.LookVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.A) then
+            moveDirection = moveDirection - workspace.CurrentCamera.CFrame.RightVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.D) then
+            moveDirection = moveDirection + workspace.CurrentCamera.CFrame.RightVector
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.Space) then
+            moveDirection = moveDirection + Vector3.new(0, 1, 0)
+        end
+        if userInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            moveDirection = moveDirection - Vector3.new(0, 1, 0)
+        end
+
+        -- Apply movement
+        bodyVelocity.Velocity = moveDirection * flySpeed
+        wait(0.1)
+    end
+end
+
+-- Function to stop flying
+local function stopFlying()
+    flying = false
+    local bodyVelocity = rootPart:FindFirstChild("BodyVelocity")
+    if bodyVelocity then
+        bodyVelocity:Destroy()
+    end
+end
+
+-- Create Toggle Button
+local Toggle = Tab:CreateToggle({
+    Name = "Toggle Flight",
+    CurrentValue = false,
+    Flag = "ToggleFlight", 
+    Callback = function(Value)
+        if Value then
+            startFlying()
+        else
+            stopFlying()
+        end
+    end,
+})
+----------------------------------------
+
+local Tab = Window:CreateTab("Teleports", "arrow-up-a-z")
+
+local Input = Tab:CreateInput({
+   Name = "Player Name",
+   PlaceholderText = "Enter Player Name",
+   NumbersOnly = false, -- Allow any characters for player names
+   CharacterLimit = 15,
+   OnEnter = true,
+   RemoveTextAfterFocusLost = false,
+   Callback = function(playerName)
+       local player = game.Players:FindFirstChild(playerName)
+       if player then
+           local character = player.Character
+           if character and character:FindFirstChild("HumanoidRootPart") then
+               game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame
+           else
+               print("Character not found or does not have a HumanoidRootPart.")
+           end
+       else
+           print("Player not found.")
+       end
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Criminal Base",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(82.9185791, 149.738617, 2475.48267, -0.00996307936, -2.97516323e-09, 0.999950349, 3.42712241e-08, 1, 3.31677463e-09, -0.999950349, 3.43025661e-08, -0.00996307936)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Warden Chair",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1712.70947, 157.337189, 2766.05615, -0.018279111, -1.06210738e-08, -0.999832928, -2.2841673e-09, 1, -1.05810889e-08, 0.999832928, 2.09037276e-09, -0.018279111)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Criminal Base (Mountain)",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1501.69507, 67.0211182, 1325.78125, 0.0199428704, 3.25636513e-08, -0.999801099, -2.31433006e-08, 1, 3.21084919e-08, 0.999801099, 2.24983623e-08, 0.0199428704)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Police Helipad",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1741.89661, 179.842178, 2693.80713, 0.0206447672, 5.04046538e-09, 0.999786854, -1.09721265e-09, 1, -5.01888353e-09, -0.999786854, -9.93365168e-10, 0.0206447672)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Police Room",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1849.01013, 155.522842, 2683.92212, -0.0107044782, 1.58947508e-10, 0.99994272, 1.05853069e-08, 1, -4.56399328e-11, -0.99994272, 1.05842126e-08, -0.0107044782)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Laundry Room",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2012.22681, 155.485703, 2811.11108, 0.000724695798, -0.00192432001, 0.999997914, 2.66518273e-05, 0.999998152, 0.00192430115, -0.999999762, 2.5257239e-05, 0.00072474574)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Warden Armory",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1742.38, 155.576279, 2804.3584, 0.999994755, -4.66739287e-08, -0.00324204727, 4.67114809e-08, 1, 1.15073542e-08, 0.00324204727, -1.16587344e-08, 0.999994755)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "OP Armory",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2214.55811, 155.393127, 2709.02661, -0.99982661, -5.82667106e-08, 0.0186216086, -5.85068349e-08, 1, -1.23502621e-08, -0.0186216086, -1.34376119e-08, -0.99982661)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Cell",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1985.99609, 170.318253, 2876.64478, 0.999945641, 4.09289811e-08, 0.0104256114, -4.18459578e-08, 1, 8.77362538e-08, -0.0104256114, -8.81677522e-08, 0.999945641)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Cafe",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1938.58362, 155.524704, 2709.36255, -0.999989212, 9.41494136e-08, 0.00465050153, 9.43001126e-08, 1, 3.21855609e-08, -0.00465050153, 3.26237561e-08, -0.999989212)  
+   end,
+})
+
+local Section = Tab:CreateSection("Other Teleports")
+
+local Button = Tab:CreateButton({
+   Name = "DB Shotgun",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(508.267181, 110.330124, 1986.54614, -0.785977364, 6.45524878e-08, -0.618255317, 6.11951307e-08, 1, 2.66144138e-08, 0.618255317, -1.69158856e-08, -0.785977364)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Hammer",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2337.78369, 156.164429, 2987.39868, -0.775942683, 4.02245455e-08, 0.630803406, 3.90577526e-09, 1, -5.89627227e-08, -0.630803406, -4.3287919e-08, -0.775942683)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Desert Deagle",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(1180.44128, 213.337006, 3302.57568, -0.999895871, -2.8825081e-08, 0.0144313592, -2.96313818e-08, 1, -5.56576687e-08, -0.0144313592, -5.6079493e-08, -0.999895871)  
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Sniper",
+   Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(768.829102, 172.521912, 2296.64551, -0.10160096, 9.48351371e-08, -0.994825244, 9.94787683e-08, 1, 8.5168729e-08, 0.994825244, -9.03107633e-08, -0.10160096)  
+   end,
+})
+
+local Tab = Window:CreateTab("World", "globe")
+
+-- Create the toggle button for Fullbright
+local Toggle = Tab:CreateToggle({
+   Name = "Fullbright Toggle",
+   CurrentValue = false, -- Default is off (no fullbright)
+   Flag = "Toggle1", -- Identifier for the configuration file
+   Callback = function(Value)
+      -- This function is triggered when the toggle state changes (true or false)
+      if Value then
+         -- Enable fullbright effect
+         game.Lighting.Ambient = Color3.fromRGB(255, 255, 255)  -- Bright ambient lighting
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255)  -- Bright outdoor lighting
+         game.Lighting.Brightness = 2 -- Higher brightness
+         game.Lighting.ShadowSoftness = 0 -- Remove shadows
+         game.Lighting.GeometricBrightness = 1 -- Optional: to enhance brightness of geometry
+      else
+         -- Disable fullbright effect and restore default lighting
+         game.Lighting.Ambient = Color3.fromRGB(128, 128, 128)  -- Default ambient lighting
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)  -- Default outdoor lighting
+         game.Lighting.Brightness = 1 -- Default brightness
+         game.Lighting.ShadowSoftness = 0.5 -- Default shadow softness
+         game.Lighting.GeometricBrightness = 0.5 -- Default geometric brightness
+      end
+   end,
+})
