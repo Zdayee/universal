@@ -1,0 +1,235 @@
+local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
+
+local Window = ArrayField:CreateWindow({
+   Name = "Redwood Prison Reworked",
+   LoadingTitle = "join discord",
+   LoadingSubtitle = "by firebrandW",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "ArrayField"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "XW2RWpP9Rs", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using ArrayField may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like ArrayField to get the key from
+      Actions = {
+            [1] = {
+                Text = 'Click here to copy the key link <--',
+                OnPress = function()
+                    print('Pressed')
+                end,
+                }
+            },
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Player", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "Aimbot",
+   Interact = 'Click',
+   Callback = function()
+ArrayField:Notify({
+   Title = "REMINDER",
+   Content = "use in first person",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+ },
+})
+
+ loadstring(game:HttpGet('https://pastebin.com/raw/wb3xYfcg'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Infinite Jump",
+   Interact = 'Click',
+   Callback = function()
+  _G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end   -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Chams/ESP",
+   Interact = 'Click',
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/EqwstreZ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Speed (HOLD X)",
+   Interact = 'Click',
+   Callback = function()
+ loadstring(game:HttpGet('https://pastebin.com/raw/Kxb0wAjJ'))()  -- The function that takes place when the button is pressed
+   end,
+})
+
+--start
+local isTeleportEnabled = false
+
+local Toggle = Tab:CreateToggle({
+   Name = "Enable Ctrl+Click Teleport",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       isTeleportEnabled = Value
+   end,
+})
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local function onMouseClick()
+    if isTeleportEnabled then
+        local mouse = Players.LocalPlayer:GetMouse()
+        if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+            local targetPosition = mouse.Hit.p  -- Get the position of the mouse click
+            if targetPosition then
+                Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)  -- Teleport the player
+            end
+        end
+    end
+end
+
+-- Connect the function to the mouse click event
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.UserInputType == Enum.UserInputType.MouseButton1 then
+        onMouseClick()
+    end
+end)
+--end
+
+local Tab = Window:CreateTab("Teleports", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "Gaurd Base",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(455.497284, 179.330811, 297.924957, 0.0384176373, 1.14504758e-07, 0.999261796, 1.13570975e-08, 1, -1.15025983e-07, -0.999261796, 1.57677391e-08, 0.0384176373)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Criminal Jail Cell",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(331.242188, 179.330811, 326.201294, 0.999966204, -9.55811714e-08, -0.00822428893, 9.53358139e-08, 1, -3.02257313e-08, 0.00822428893, 2.94406401e-08, 0.999966204)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Heli Pad",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(571.971619, 182.674225, 381.316437, 0.713205814, -4.84443019e-09, 0.700954676, -2.40378339e-09, 1, 9.35698541e-09, -0.700954676, -8.35839931e-09, 0.713205814)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Roof Entrance",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(475.303192, 209.243866, 363.759155, -0.00834248308, 6.46624221e-09, 0.999965191, 2.73602141e-10, 1, -6.4641843e-09, -0.999965191, 2.19665258e-10, -0.00834248308)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Escape",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(446.045502, 150.393295, -516.958496, 0.999718726, 1.31377025e-08, -0.0237163473, -1.39360274e-08, 1, -3.34960681e-08, 0.0237163473, 3.38171589e-08, 0.999718726)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Criminal Base",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-981.36145, 150.502991, -1225.8197, -0.99994266, 2.65981051e-08, 0.0107096313, 2.55442227e-08, 1, -9.85419248e-08, -0.0107096313, -9.826271e-08, -0.99994266)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Criminal Heli Pad",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-907.658508, 152.523193, -1206.08167, -0.999998987, 1.0098046e-08, -0.0014419416, 1.02302558e-08, 1, -9.16818195e-08, 0.0014419416, -9.16964709e-08, -0.999998987)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Car Dealership",
+   Interact = 'Click',
+   Callback = function()
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-704.203003, 151.229538, -658.743164, 0.999841392, 1.11570475e-09, 0.0178092085, -9.55926671e-10, 1, -8.98016506e-09, -0.0178092085, 8.9617167e-09, 0.999841392)  -- The function that takes place when the button is pressed
+   end,
+})
+
+local Tab = Window:CreateTab("World Functions", 4483362458) -- Title, Image
+
+--start fullbright
+local isFullBright = false -- Variable to track fullbright state
+
+local Toggle = Tab:CreateToggle({
+   Name = "Toggle Fullbright",
+   CurrentValue = false,
+   Flag = "ToggleFullbright", 
+   Callback = function(Value)
+      isFullBright = Value
+      if isFullBright then
+         game.Lighting.Brightness = 2 -- Set the brightness level (can be adjusted)
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(255, 255, 255) -- Set outdoor ambient to bright white
+         game.Lighting.Ambient = Color3.fromRGB(255, 255, 255) -- Set ambient to bright white
+      else
+         game.Lighting.Brightness = 0.2 -- Reset brightness to default
+         game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128) -- Reset outdoor ambient to default
+         game.Lighting.Ambient = Color3.fromRGB(128, 128, 128) -- Reset ambient to default
+      end
+   end,
+})
+
+-- Optional: Add a function to reset the lighting on script close
+game:BindToClose(function()
+   game.Lighting.Brightness = 0.2
+   game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+   game.Lighting.Ambient = Color3.fromRGB(128, 128, 128)
+end)
+--end fullbright
