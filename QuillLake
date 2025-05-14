@@ -1,0 +1,246 @@
+-- Sub To BrokeToR1ch Scripts On YT
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Quill Lake", "Ocean")
+
+
+local args = {
+    [1] = "made by firebrandw",
+    [2] = "All"
+}
+
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+
+
+
+local Teleports = Window:NewTab("Teleports")
+local TeleportsSection = Teleports:NewSection("Teleports")
+
+TeleportsSection:NewButton("Pawn Shop", "Teleports you to the shop.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(44.1214905, 8.86464787, 366.395721, -0.00242100633, 1.03106068e-07, -0.999997079, -5.61684921e-08, 1, 1.0324235e-07, 0.999997079, 5.64182763e-08, -0.00242100633)
+end)
+
+TeleportsSection:NewButton("Boat Rental", "Teleports you to the boat dock.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(48.7454948, 2.77482653, 222.144348, 0.999895871, -3.55990126e-09, 0.0144309802, 3.5904455e-09, 1, -2.09066187e-09, -0.0144309802, 2.14225793e-09, 0.999895871)
+end)
+
+TeleportsSection:NewButton("Scuba Shop", "Teleports you to the scuba gear.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-98.0263214, 8.44780731, 370.493073, -0.359707177, 2.48048124e-08, 0.933065236, 1.93320222e-08, 1, -1.91315088e-08, -0.933065236, 1.11562954e-08, -0.359707177)
+end)
+
+TeleportsSection:NewButton("Suit Shop", "Teleports you to the suit shop.", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1123.36279, 4.93336868, -365.958099, 0.281759501, -1.43366308e-09, 0.959485054, -1.80281667e-09, 1, 2.02361017e-09, -0.959485054, -2.29994712e-09, 0.281759501)
+end)
+
+
+local Main = Window:NewTab("Main")
+local MainSection = Main:NewSection("Main")
+
+MainSection:NewButton("Refill Air Tank", "Refills your air tank for free.", function()
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.ScubaGear.AirTank,
+    [2] = 270
+}
+
+game:GetService("ReplicatedStorage").ChangeValue:FireServer(unpack(args))
+
+end)
+
+MainSection:NewButton("Refill Health", "Refills your health.", function()
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.Character.Humanoid
+}
+
+game:GetService("ReplicatedStorage").HealHumanoid:FireServer(unpack(args))
+
+end)
+
+MainSection:NewButton("Sell All", "Sells your inventory.", function()
+game:GetService("ReplicatedStorage").SellAll:FireServer()
+
+end)
+
+MainSection:NewButton("Get 10k", "Gives you 10k coins.", function()
+local args = {
+    [1] = game:GetService("Players").LocalPlayer.GoldCoins,
+    [2] = 10000
+}
+
+game:GetService("ReplicatedStorage").ChangeValue:FireServer(unpack(args))
+
+end)
+
+MainSection:NewButton("Max Artifacts", "Gives you max artifacts on the leaderboard.", function()
+    game.ReplicatedStorage.ChangeValue:FireServer(game.Players.LocalPlayer.leaderstats["Artifacts Found"], 99999)
+end)
+
+MainSection:NewButton("Max Time", "Gives you max time on the leaderboard.", function()
+    game.ReplicatedStorage.ChangeValue:FireServer(game.Players.LocalPlayer.leaderstats.Minutes, 99999)
+end)
+
+
+local Player = Window:NewTab("Player")
+local PlayerSection = Player:NewSection("Player")
+
+PlayerSection:NewButton("Pirate Suit", "Gives you the pirate outfit.", function()
+local args = {
+    [1] = "PirateCostume"
+}
+
+game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+
+end)
+
+PlayerSection:NewButton("Hazmat Suit", "Gives you the hazmat outfit.", function()
+    local args = {
+    [1] = "HazmatSuit"
+    }
+    
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+    
+end)
+
+PlayerSection:NewButton("Fire Suit", "Gives you the fire outfit.", function()
+local args = {
+    [1] = "FireSuit"
+    }
+        
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+        
+end)
+
+PlayerSection:NewButton("Ice Suit", "Gives you the ice outfit.", function()
+    local args = {
+    [1] = "IceSuit"
+    }
+    
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+    
+end)
+
+PlayerSection:NewButton("Scuba Suit", "Gives you the scuba outfit.", function()
+    local args = {
+    [1] = "ScubaSuit"
+    }
+            
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+            
+end)
+
+PlayerSection:NewButton("Snorkel Suit", "Gives you the snorkel outfit.", function()
+    local args = {
+    [1] = "Snorkel"
+    }
+            
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+            
+end)
+
+PlayerSection:NewButton("Power Suit", "Gives you the power outfit.", function()
+    local args = {
+    [1] = "SuperScuba"
+    }
+            
+    game:GetService("ReplicatedStorage").ChangeOutfits:FireServer(unpack(args))
+            
+end)
+
+
+PlayerSection:NewButton("Flashlight", "Gives you the flashlight.", function()
+local args = {
+    [1] = "Flashlight"
+}
+
+game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+
+end)
+
+PlayerSection:NewButton("Radar", "Gives you the radar.", function()
+    local args = {
+    [1] = "Radar"
+    }
+    
+    game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+    
+end)
+
+PlayerSection:NewButton("Life Jacket", "Gives you the life jacket.", function()
+    local args = {
+        [1] = "LifeJacket"
+        }
+        
+        game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+        
+end)
+
+PlayerSection:NewButton("Anchor", "Gives you the anchor.", function()
+    local args = {
+        [1] = "Anchor"
+        }
+        
+        game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+        
+end)
+
+PlayerSection:NewButton("Aqua Breather", "Gives you the aqua breather.", function()
+    local args = {
+        [1] = "Aquabreather"
+        }
+        
+        game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+        
+end)
+
+PlayerSection:NewButton("Scooter", "Gives you the lantern.", function()
+    local args = {
+        [1] = "SeaScooter"
+        }
+        
+        game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+        
+end)
+
+PlayerSection:NewButton("Lantern", "Gives you the lantern.", function()
+    local args = {
+        [1] = "Lantern"
+        }
+        
+        game:GetService("ReplicatedStorage").GiveTool:FireServer(unpack(args))
+        
+end)
+
+
+PlayerSection:NewSlider("Walk Speed", "Changes your walkspeed.", 500, 16, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+PlayerSection:NewSlider("Jump Power", "Changes your jump power.", 500, 50, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+PlayerSection:NewButton("God Mode", "Gives you god mode.", function()
+    game.ReplicatedStorage.DamageHumanoid:FireServer(-2e9)
+end)
+
+PlayerSection:NewButton("Sell All", "Loop sells your inventory.", function()
+    while wait(1)
+    do game:GetService("ReplicatedStorage").SellAll:FireServer()
+        end
+end)
+
+local Info = Window:NewTab("Info")
+local InfoSection = Info:NewSection("Info")
+
+InfoSection:NewButton("Made By firebrandw", "Pressing this will print some info in the F9 console.", function()
+    print("Thanks for using this script, it helps alot.")
+end)
+
+InfoSection:NewKeybind("Toggle UI", "Toggles the ui on and off.", Enum.KeyCode.E, function()
+	Library:ToggleUI()
+end)
+
+InfoSection:NewButton("Anti Afk", "Stops idle kicks.", function()
+    	for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+    v:Disable()
+  end
+end)
