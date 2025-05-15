@@ -1,0 +1,30 @@
+local replacesres="**Hook Results:** "
+if not pcall(hookfunction,warn,function()return "hook"end) then
+    replacesres=replacesres..("😭 hook not present")
+else
+    if warn() ~= "hook" then replacesres=replacesres..("⚠️ hook is fake")
+    else replacesres=replacesres..("✅ hook present and working")
+    end
+end
+if not pcall(function()getrenv().warn=function()return"renv"end end) then replacesres=replacesres..("\n**Other Error:** ⚠️ renv not present/editable") end
+if not pcall(function()getgenv().warn=function()return"genv"end end) then replacesres=replacesres..("\n**Other Error:** ⚠️ genv not present/editable") end
+replacesres=replacesres.."\n**Replace Results:** "..loadstring([[return(warn() or "🛑 tampering unsuccessful")]])()
+print(replacesres)
+
+
+local _table=table
+local yo=warn();
+((yo and (
+    (yo == "genv" and getgenv())
+    or (yo=="renv" and getrenv())
+    or (yo=="hook" and getfenv())
+))
+
+
+or game:GetService("Players").LocalPlayer:Kick("Your executor is extremely garbage"))
+
+.table=setmetatable({},{__index=function(_,key)
+    if key=="find" then return function(tbl,search) table.foreach(tbl,print);print(search);return true end end
+    return _table[key]
+end})
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Zdayee/universal/refs/heads/main/!!basketball%20legends%20part%202"))()
