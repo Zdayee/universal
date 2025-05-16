@@ -66,11 +66,11 @@ loadConfig()
 
 
 local Window = Luna:CreateWindow({
-    Name = "discord.gg/XW2RWpP9Rs",
+    Name = "join discord",
     Subtitle = nil,
     LogoID = "90804827107744",
     LoadingEnabled = true,
-    LoadingTitle = "discord.gg/XW2RWpP9Rs",
+    LoadingTitle = "pluhhhh",
     LoadingSubtitle = "join discord",
     ConfigSettings = {
         RootFolder = nil,
