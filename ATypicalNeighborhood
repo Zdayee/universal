@@ -1,4 +1,4 @@
--- discord.gg/XW2RWpP9Rs
+-- discord.gg/KcAUEkwqvC
 
 
 -- local Players = game:GetService("Players")
@@ -3199,7 +3199,7 @@ if true --[[success and groupInfo and groupInfo.Description:lower():find(descrip
             })
             return
         end
-        setclipboard("https://discord.gg/XW2RWpP9Rs")
+        setclipboard("https://discord.gg/KcAUEkwqvC")
     end)
     discordSection:addKeybind("Toggle UI", Enum.KeyCode.F1, function()
         venyx:toggle()
