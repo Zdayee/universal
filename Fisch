@@ -47,7 +47,7 @@ v128.Home:AddButton(
             local v150
             while true do
                 if (v149 == 0) then
-                    v150 = "https://discord.gg/XW2RWpP9Rs"
+                    v150 = "https://discord.gg/KcAUEkwqvC"
                     if setclipboard then
                         local v308 = 0
                         local v309
@@ -81,8 +81,8 @@ v128.Home:AddParagraph(
 )
 v128.Home:AddParagraph(
     {
-        ["Title"] = "Join us",
-        ["Content"] = "discord.gg/XW2RWpP9Rs"
+        ["Title"] = "Join discord",
+        ["Content"] = ""
     }
 )
 v128.Main:AddButton(
