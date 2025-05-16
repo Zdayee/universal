@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield", true))(
 local Window =
     Rayfield:CreateWindow(
     {
-        Name = "join discord .gg/XW2RWpP9Rs",
+        Name = "beaks",
         LoadingTitle = "beaks",
         LoadingSubtitle = "join the discord",
         ConfigurationSaving = {Enabled = false}
