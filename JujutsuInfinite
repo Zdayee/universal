@@ -1,6 +1,6 @@
 local Luna = loadstring(game:HttpGet("https://paste.ee/r/WSCKThwW", true))()
 local HttpService = game:GetService("HttpService")
-local configFile = "firebrandwConfig.json"
+local configFile = "JujutsuInfiniteConfig.json"
 local http = game:GetService("HttpService")
 local userId = game.Players.LocalPlayer.UserId
 --local blacklist = {1131586622, 1225643250, 1918988070}
@@ -64,16 +64,16 @@ loadConfig()
 
 
 local Window = Luna:CreateWindow({
-    Name = "firebrandw",
+    Name = "discord.gg/XW2RWpP9Rs",
     Subtitle = nil,
     LogoID = "90804827107744",
     LoadingEnabled = true,
     LoadingTitle = "discord.gg/XW2RWpP9Rs",
-    LoadingSubtitle = "firebrandw",
+    LoadingSubtitle = "join the discord",
 
     ConfigSettings = {
 		RootFolder = nil, 
-		ConfigFolder = "firebrandw" 
+		ConfigFolder = "JujutsuInfinite" 
     },
 })
 
@@ -1959,7 +1959,7 @@ function SendMessageEMBED(url, embed)
         ["Content-Type"] = "application/json"
     }
     local data = {
-        ["username"] = "firebrandw",
+        ["username"] = "pluhbruh",
         ["avatar_url"] = "https://imgur.com/5EKp1dm.png",
         ["embeds"] = {
             {
