@@ -5,7 +5,7 @@ local Window = Library.CreateLib("Quill Lake", "Ocean")
 
 
 local args = {
-    [1] = "join discord.gg/XW2RWpP9Rs",
+    [1] = "quill lake",
     [2] = "All"
 }
 
@@ -231,7 +231,7 @@ end)
 local Info = Window:NewTab("Info")
 local InfoSection = Info:NewSection("Info")
 
-InfoSection:NewButton("join discord.gg/XW2RWpP9Rs", "Pressing this will print some info in the F9 console.", function()
+InfoSection:NewButton("join discord", "Pressing this will print some info in the F9 console.", function()
     print("Thanks for using this script, it helps alot.")
 end)
 
