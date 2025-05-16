@@ -79,7 +79,7 @@ local Window = Luna:CreateWindow({
 
 Window:CreateHomeTab({
 	SupportedExecutors = {}, -- A Table Of Executors Your Script Supports. Add strings of the executor names for each executor.
-	DiscordInvite = "",
+	DiscordInvite = "pluhhhbruh",
 	Icon = 1, -- By Default, The Icon Is The Home Icon. If You would like to change it to dashboard, replace the interger with 2
 })
 
