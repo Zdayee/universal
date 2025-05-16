@@ -2,7 +2,7 @@ local Luna = loadstring(game:HttpGet("https://paste.ee/r/WSCKThwW", true))()
 
 local HttpService = game:GetService("HttpService")
 
-local configFile = "firebrandwConfig.json"
+local configFile = "HaikyuuLegendsConfig.json"
 
 local http = game:GetService("HttpService")
 local userId = game.Players.LocalPlayer.UserId
@@ -66,15 +66,15 @@ loadConfig()
 
 
 local Window = Luna:CreateWindow({
-    Name = "firebrandw",
+    Name = "discord.gg/XW2RWpP9Rs",
     Subtitle = nil,
     LogoID = "90804827107744",
     LoadingEnabled = true,
     LoadingTitle = "discord.gg/XW2RWpP9Rs",
-    LoadingSubtitle = "firebrandw",
+    LoadingSubtitle = "join discord",
     ConfigSettings = {
         RootFolder = nil,
-        ConfigFolder = "firebrandw"
+        ConfigFolder = "HaikyuuLegends"
     },
 })
 
