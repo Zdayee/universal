@@ -64,11 +64,11 @@ loadConfig()
 
 
 local Window = Luna:CreateWindow({
-    Name = "discord.gg/XW2RWpP9Rs",
+    Name = "Jujutsu Infinite",
     Subtitle = nil,
     LogoID = "90804827107744",
     LoadingEnabled = true,
-    LoadingTitle = "discord.gg/XW2RWpP9Rs",
+    LoadingTitle = "pluhbruh",
     LoadingSubtitle = "join the discord",
 
     ConfigSettings = {
@@ -1964,7 +1964,7 @@ function SendMessageEMBED(url, embed)
         ["embeds"] = {
             {
                 ["title"] = embed.title,
-                ["url"] = "https://discord.gg/XW2RWpP9Rs",
+                ["url"] = "ye",
                 ["description"] = embed.description,
                 ["color"] = embed.color,
                 ["fields"] = embed.fields,
@@ -2005,7 +2005,7 @@ for _, item in pairs(workspace.Objects.Drops:GetChildren()) do
                     }
                 },
                 ["footer"] = {
-                    ["text"] = "https://discord.gg/XW2RWpP9Rs"
+                    ["text"] = ""
                 }
             }
             SendMessageEMBED(url, embed)
