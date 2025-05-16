@@ -82,7 +82,7 @@ v128.Home:AddParagraph(
 v128.Home:AddParagraph(
     {
         ["Title"] = "Join us",
-        ["Content"] = "Join us now and take your Roblox experience to the next level with firebrandw dedicated community!"
+        ["Content"] = "discord.gg/XW2RWpP9Rs"
     }
 )
 v128.Main:AddButton(
