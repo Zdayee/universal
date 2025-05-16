@@ -3,9 +3,9 @@
 local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
 
 local Window = ArrayField:CreateWindow({
-   Name = "join discord .gg/XW2RWpP9Rs",
+   Name = "Cold War",
    LoadingTitle = "Cold War",
-   LoadingSubtitle = "Cold War",
+   LoadingSubtitle = "join discord",
    ConfigurationSaving = {
       Enabled = true,
       FolderName = nil,
