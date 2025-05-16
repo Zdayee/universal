@@ -107,6 +107,6 @@ local Tab = Window:CreateTab("OP", 4483362458) -- Title, Image
 local Button = Tab:CreateButton({
    Name = "OP",
    Callback = function()
- loadstring(game:HttpGet('https://raw.githubusercontent.com/Zdayee/firebrandw/refs/heads/main/no%20scope%20arcade'))()  -- The function that takes place when the button is pressed
+ loadstring(game:HttpGet('https://raw.githubusercontent.com/Zdayee/universal/refs/heads/main/NoScopeArcade2'))()  -- The function that takes place when the button is pressed
    end,
 })
