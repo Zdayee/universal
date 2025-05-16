@@ -1,7 +1,7 @@
 local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
 
 local Window = ArrayField:CreateWindow({
-   Name = "discord.gg/XW2RWpP9Rs",
+   Name = "Redwood Prison Reworked",
    LoadingTitle = "Redwood Prison Reworked",
    LoadingSubtitle = "join discord",
    ConfigurationSaving = {
