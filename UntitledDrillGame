@@ -6,7 +6,7 @@ local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercon
 
 local w = Library:CreateWindow{
     Title = "untitled drill game",
-    SubTitle = "discord.gg/XW2RWpP9Rs",
+    SubTitle = "frick yea",
     TabWidth = 160,
     Size = UDim2.fromOffset(830, 525),
     Resize = true,
