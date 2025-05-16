@@ -1909,8 +1909,8 @@ if not v20 then
 end
 local v31 = v22:CreateTab('Settings');
 local v32 = v31:CreateSector('Info', 'Left');
-v32:CreateCoppyText('join discord.gg/XW2RWpP9Rs');
-v32:CreateCoppyText('https://discord.gg/XW2RWpP9Rs - Click Me');
+v32:CreateCoppyText('j');
+v32:CreateCoppyText(' - Click Me');
 v31:CreateConfig('Right');
 local v33 = v31:CreateSector('GUI Settigns', 'Left');
 v33:CreateToggle('UI Toggle Button', v12.GUI.GUIButton, function(v119)
@@ -1959,7 +1959,7 @@ v53.Parent = v40;
 v53.Thickness = 1;
 v53.ApplyStrokeMode = 'Border';
 game:GetService('StarterGui'):SetCore('SendNotification', {
-    Title = 'https://discord.gg/XW2RWpP9Rs',
+    Title = '',
     Text = 'The Discord For More!'
 });
 local function v58(v124)
