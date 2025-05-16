@@ -1,9 +1,9 @@
 local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
 
 local Window = ArrayField:CreateWindow({
-   Name = "firebrandW script",
-   LoadingTitle = "join discord",
-   LoadingSubtitle = "by firebrandW",
+   Name = "discord.gg/XW2RWpP9Rs",
+   LoadingTitle = "Untitled Tag Game",
+   LoadingSubtitle = "join discord",
    ConfigurationSaving = {
       Enabled = true,
       FolderName = nil, -- Create a custom folder for your hub/game
