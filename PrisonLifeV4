@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "join discord.gg/XW2RWpP9Rs",
+   Name = "Prison Life V4",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
    LoadingTitle = "Prison Life V4",
    LoadingSubtitle = "join the discord",
@@ -38,13 +38,6 @@ local Tab = Window:CreateTab("info", "shield-alert")
 
 local Button = Tab:CreateButton({
    Name = "some of these scripts ARE NOT mine",
-   Callback = function()
-   -- The function that takes place when the button is pressed
-   end,
-})
-
-local Button = Tab:CreateButton({
-   Name = "discord.gg/XW2RWpP9Rs",
    Callback = function()
    -- The function that takes place when the button is pressed
    end,
