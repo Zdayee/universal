@@ -5,8 +5,8 @@ local Window =
     Rayfield:CreateWindow(
     {
         Name = "join discord .gg/XW2RWpP9Rs",
-        LoadingTitle = "made by firebrandw",
-        LoadingSubtitle = "by firebrandw",
+        LoadingTitle = "beaks",
+        LoadingSubtitle = "join the discord",
         ConfigurationSaving = {Enabled = false}
     }
 )
