@@ -974,10 +974,10 @@ Tab.Credits:AddButton(
         Title = "Discord",
         Description = "Click to copy",
         Callback = function()
-            setclipboard("https://discord.gg/XW2RWpP9Rs")
-            toclipboard("https://discord.gg/XW2RWpP9Rs")
+            setclipboard("--")
+            toclipboard("--")
 
-            sendNotify(5, "Notification", "Discord Link Was Copied To Your Clipboard: https://discord.gg/XW2RWpP9Rs")
+            sendNotify(5, "Notification", "Discord Link Was Copied To Your Clipboard: --")
         end
     }
 )
