@@ -1,7 +1,7 @@
 local ArrayField = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/ArrayField/main/Source.lua'))()
 
 local Window = ArrayField:CreateWindow({
-   Name = "join discord .gg/XW2RWpP9Rs",
+   Name = "Doomspire Bricke Battle",
    LoadingTitle = "Doomspire Bricke Battle",
    LoadingSubtitle = "join discord",
    ConfigurationSaving = {
@@ -18,7 +18,7 @@ local Window = ArrayField:CreateWindow({
    KeySettings = {
       Title = "join discord for key",
       Subtitle = "Key System",
-      Note = "join discord.gg/XW2RWpP9Rs",
+      Note = "",
       FileName = "Key", -- It is recommended to use something unique as other scripts using ArrayField may overwrite your key file
       SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like ArrayField to get the key from
@@ -93,14 +93,6 @@ local Section = Tab:CreateSection("join discord",false)
 
 local Button = Tab:CreateButton({
    Name = "more being added soon $$",
-   Interact = 'Click',
-   Callback = function()
- -- The function that takes place when the button is pressed
-   end,
-})
-
-local Button = Tab:CreateButton({
-   Name = "https://discord.gg/XW2RWpP9Rs",
    Interact = 'Click',
    Callback = function()
  -- The function that takes place when the button is pressed
