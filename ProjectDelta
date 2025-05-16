@@ -1909,7 +1909,7 @@ if not v20 then
 end
 local v31 = v22:CreateTab('Settings');
 local v32 = v31:CreateSector('Info', 'Left');
-v32:CreateCoppyText('Made By firebrandw');
+v32:CreateCoppyText('join discord.gg/XW2RWpP9Rs');
 v32:CreateCoppyText('https://discord.gg/XW2RWpP9Rs - Click Me');
 v31:CreateConfig('Right');
 local v33 = v31:CreateSector('GUI Settigns', 'Left');
